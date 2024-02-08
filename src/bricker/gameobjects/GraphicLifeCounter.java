@@ -1,9 +1,7 @@
-package bouncing_ball_from_ta.gameobjects;
+package bricker.gameobjects;
 
 import danogl.GameObject;
 import danogl.collisions.GameObjectCollection;
-import danogl.gui.ImageReader;
-import danogl.gui.rendering.Renderable;
 import danogl.gui.rendering.ImageRenderable;
 import danogl.util.Vector2;
 

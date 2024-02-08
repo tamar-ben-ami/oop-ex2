@@ -1,10 +1,10 @@
-package bouncing_ball_from_ta;
+package bricker;
 
-import bouncing_ball_from_ta.brick_strategies.BasicCollisionStrategy;
-import bouncing_ball_from_ta.gameobjects.Ball;
-import bouncing_ball_from_ta.gameobjects.Brick;
-import bouncing_ball_from_ta.gameobjects.LifeCounter;
-import bouncing_ball_from_ta.gameobjects.UserPaddle;
+import bricker.brick_strategies.BasicCollisionStrategy;
+import bricker.gameobjects.Ball;
+import bricker.gameobjects.Brick;
+import bricker.gameobjects.LifeCounter;
+import bricker.gameobjects.Paddle;
 import danogl.GameManager;
 import danogl.GameObject;
 import danogl.collisions.Layer;
@@ -15,7 +15,7 @@ import danogl.util.Vector2;
 
 import java.util.Random;
 
-public class BouncingBallGameManager extends GameManager {
+public class BrickerGameManager extends GameManager {
     private static final int BORDER_WIDTH = 10;
     private static final int PADDLE_HEIGHT = 20;
     private static final int PADDLE_WIDTH = 100;
@@ -28,7 +28,7 @@ public class BouncingBallGameManager extends GameManager {
     private Ball ball;
     private Vector2 windowDimensions;
     private WindowController windowController;
-    private UserPaddle userPaddle;
+    private Paddle paddle;
     private Brick brick;
     private Brick[] bricks;
     private BasicCollisionStrategy basicCollisionStrategy;
@@ -39,7 +39,7 @@ public class BouncingBallGameManager extends GameManager {
 
 
 
-    public BouncingBallGameManager(String windowTitle, Vector2 windowDimensions) {
+    public BrickerGameManager(String windowTitle, Vector2 windowDimensions) {
         super(windowTitle, windowDimensions);
     }
 
@@ -141,7 +141,7 @@ public class BouncingBallGameManager extends GameManager {
     private void createUserPaddle(UserInputListener inputListener, Vector2 windowDimensions) {
         Renderable paddleImage = imageReader.readImage(
                 "assets/paddle.png", false);
-        userPaddle = new UserPaddle(
+        paddle = new Paddle(
                 Vector2.ZERO,
                 new Vector2(PADDLE_WIDTH, PADDLE_HEIGHT),
                 paddleImage,
@@ -149,9 +149,9 @@ public class BouncingBallGameManager extends GameManager {
                 this.windowDimensions.x() - BORDER_WIDTH,
                 BORDER_WIDTH);
 
-        userPaddle.setCenter(
+        paddle.setCenter(
                 new Vector2(windowDimensions.x()/2, (int)windowDimensions.y()-30));
-        gameObjects().addGameObject(userPaddle);
+        gameObjects().addGameObject(paddle);
     }
 
 
@@ -208,7 +208,7 @@ public class BouncingBallGameManager extends GameManager {
             }
         }
         createBricks(windowDimensions);
-        userPaddle.setCenter(
+        paddle.setCenter(
                 new Vector2(windowDimensions.x()/2, (int)windowDimensions.y()-30));
         ball.setCenter(windowDimensions.mult(0.5F));
         setRandomVelocity();
@@ -216,7 +216,7 @@ public class BouncingBallGameManager extends GameManager {
 
     public static void main(String[] args) {
 
-        BouncingBallGameManager b = new BouncingBallGameManager(
+        BrickerGameManager b = new BrickerGameManager(
                 "Bouncing Ball",
                 new Vector2(700, 500));
         if (args.length >= 2) {
