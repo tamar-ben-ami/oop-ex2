@@ -10,5 +10,6 @@ public class Ball extends GameObject {
         super(topLeftCorner, dimensions, renderable);
     }
 
+    @Override
     public void onCollisionEnter(GameObject other, Collision collision) {}
 }

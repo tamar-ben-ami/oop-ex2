@@ -1,6 +1,8 @@
 package bricker.main;
 
+import bricker.gameobjects.Ball;
 import danogl.GameManager;
+import danogl.collisions.GameObjectCollection;
 import danogl.gui.ImageReader;
 import danogl.gui.SoundReader;
 import danogl.gui.UserInputListener;
@@ -11,13 +13,13 @@ public class BrickerGameManager extends GameManager {
     public BrickerGameManager() {
     }
 
-    void initializeGame(ImageReader imageReader, SoundReader
+    public void initializeGame(ImageReader imageReader, SoundReader
             soundReader, UserInputListener inputListener,
                         WindowController windowController) {
 
     }
 
-    void update(float deltaTime) {
+    public void update(float deltaTime) {
 
     }
 

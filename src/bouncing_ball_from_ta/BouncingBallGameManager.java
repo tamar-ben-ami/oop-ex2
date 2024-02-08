@@ -1,0 +1,228 @@
+package bouncing_ball_from_ta;
+
+import bouncing_ball_from_ta.brick_strategies.BasicCollisionStrategy;
+import bouncing_ball_from_ta.gameobjects.Ball;
+import bouncing_ball_from_ta.gameobjects.Brick;
+import bouncing_ball_from_ta.gameobjects.LifeCounter;
+import bouncing_ball_from_ta.gameobjects.UserPaddle;
+import danogl.GameManager;
+import danogl.GameObject;
+import danogl.collisions.Layer;
+import danogl.components.CoordinateSpace;
+import danogl.gui.*;
+import danogl.gui.rendering.Renderable;
+import danogl.util.Vector2;
+
+import java.util.Random;
+
+public class BouncingBallGameManager extends GameManager {
+    private static final int BORDER_WIDTH = 10;
+    private static final int PADDLE_HEIGHT = 20;
+    private static final int PADDLE_WIDTH = 100;
+    private static final int BALL_RADIUS = 35;
+    private static final double BALL_SPEED = 350;
+    private static final int NUM_OF_BRICKS_ROWS = 7;
+    private static final int NUM_OF_BRICKS_COLS = 8;
+    private static final int BRICK_HEIGHT = 15;
+    private static final String BALL_TAG = "Ball";
+    private Ball ball;
+    private Vector2 windowDimensions;
+    private WindowController windowController;
+    private UserPaddle userPaddle;
+    private Brick brick;
+    private Brick[] bricks;
+    private BasicCollisionStrategy basicCollisionStrategy;
+    private int numOfBricksRows = NUM_OF_BRICKS_ROWS;
+    private int numOfBricksCols = NUM_OF_BRICKS_COLS;
+    private ImageReader imageReader;
+    private LifeCounter lifeCounter;
+
+
+
+    public BouncingBallGameManager(String windowTitle, Vector2 windowDimensions) {
+        super(windowTitle, windowDimensions);
+    }
+
+    @Override
+    public void initializeGame(ImageReader imageReader,
+                               SoundReader soundReader,
+                               UserInputListener inputListener,
+                               WindowController windowController) {
+        this.imageReader = imageReader;
+        this.windowController = windowController;
+        //initialization
+        super.initializeGame(imageReader, soundReader, inputListener, windowController);
+        windowDimensions = windowController.getWindowDimensions();
+        createBackground();
+        //create ball
+        createBall(soundReader, windowController);
+
+        //create paddles
+        createUserPaddle(inputListener, windowDimensions);
+
+        //create borders
+        createBorders(windowDimensions);
+        createBricks(windowDimensions);
+
+        createLifeCounter(windowDimensions);
+    }
+
+    private void createLifeCounter(Vector2 windowDimensions) {
+        lifeCounter = new LifeCounter(imageReader, windowDimensions, gameObjects());
+        lifeCounter.addToGameObjects();
+
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+        checkForGameEnd();
+    }
+
+    private void checkForGameEnd() {
+        double ballHeight = ball.getCenter().y();
+
+        String prompt = "";
+        if(ballHeight < 0) {
+            //we lost
+            prompt = "You win!";
+        }
+        if(ballHeight > windowDimensions.y()) {
+            lifeCounter.decreaseLife();
+            if (lifeCounter.isAlive()) {
+                resetSettings();
+            }
+            else {
+                prompt = "You Lose!";
+            }
+        }
+        if(!prompt.isEmpty()) {
+            prompt += " Play again?";
+            if(windowController.openYesNoDialog(prompt))
+                windowController.resetGame();
+            else
+                windowController.closeWindow();
+        }
+    }
+
+    private void createBackground() {
+        Renderable backgroundImage = imageReader.readImage("assets/DARK_BG2_small.jpeg", true);
+        GameObject background = new GameObject(Vector2.ZERO, windowDimensions, backgroundImage);
+        background.setCoordinateSpace(CoordinateSpace.CAMERA_COORDINATES);
+
+        gameObjects().addGameObject(background, Layer.BACKGROUND);
+    }
+
+    private void createBall(SoundReader soundReader, WindowController windowController) {
+        Renderable ballImage =
+                imageReader.readImage("assets/ball.png", true);
+        Sound collisionSound = soundReader.readSound("assets/blop.wav");
+        ball = new Ball(
+                Vector2.ZERO, new Vector2(BALL_RADIUS, BALL_RADIUS), ballImage, collisionSound);
+
+        Vector2 windowDimensions = windowController.getWindowDimensions();
+        ball.setCenter(windowDimensions.mult(0.5F));
+        gameObjects().addGameObject(ball);
+
+        setRandomVelocity();
+    }
+
+    private void setRandomVelocity() {
+        float ballVelX = (float) BALL_SPEED;
+        float ballVelY = (float) BALL_SPEED;
+        Random rand = new Random();
+        if(rand.nextBoolean())
+            ballVelX *= -1;
+        if(rand.nextBoolean())
+            ballVelY *= -1;
+        ball.setVelocity(new Vector2(ballVelX, ballVelY));
+    }
+
+    private void createUserPaddle(UserInputListener inputListener, Vector2 windowDimensions) {
+        Renderable paddleImage = imageReader.readImage(
+                "assets/paddle.png", false);
+        userPaddle = new UserPaddle(
+                Vector2.ZERO,
+                new Vector2(PADDLE_WIDTH, PADDLE_HEIGHT),
+                paddleImage,
+                inputListener,
+                this.windowDimensions.x() - BORDER_WIDTH,
+                BORDER_WIDTH);
+
+        userPaddle.setCenter(
+                new Vector2(windowDimensions.x()/2, (int)windowDimensions.y()-30));
+        gameObjects().addGameObject(userPaddle);
+    }
+
+
+    private void createBorders(Vector2 windowDimensions) {
+        Renderable borderImage = imageReader.readImage(
+                "assets/brick.png", false);
+        gameObjects().addGameObject(
+                new GameObject(
+                        Vector2.ZERO,
+                        new Vector2(BORDER_WIDTH, windowDimensions.y()),
+                        borderImage)
+        );
+        gameObjects().addGameObject(
+                new GameObject(
+                        new Vector2(windowDimensions.x()-BORDER_WIDTH, 0),
+                        new Vector2(BORDER_WIDTH, windowDimensions.y()),
+                        borderImage)
+        );
+        gameObjects().addGameObject(
+                new GameObject(
+                        Vector2.ZERO,
+                        new Vector2(windowDimensions.x(), BORDER_WIDTH),
+                        borderImage)
+        );
+    }
+
+    private void createBricks(Vector2 windowDimensions) {
+        Renderable brickImage =
+                imageReader.readImage("assets/brick.png", false);
+        basicCollisionStrategy = new BasicCollisionStrategy(gameObjects(), BALL_TAG);
+
+        bricks = new Brick[numOfBricksCols * numOfBricksRows];
+        float brickWidth = (windowDimensions.x() - BORDER_WIDTH * 2) / numOfBricksCols;
+        for (int row = 0; row < numOfBricksRows; row++) {
+            for (int col = 0; col < numOfBricksCols; col++) {
+                createBrick(row, col, brickWidth, brickImage);
+            }
+        }
+    }
+
+    private void createBrick(int row, int col, float brickWidth, Renderable brickImage) {
+        bricks[(row * numOfBricksCols) + col] =
+                new Brick(Vector2.ZERO, new Vector2(brickWidth, BRICK_HEIGHT),
+                        brickImage, basicCollisionStrategy);
+        bricks[(row * numOfBricksCols) + col].setTopLeftCorner(
+                new Vector2(BORDER_WIDTH + brickWidth * col, BORDER_WIDTH + BRICK_HEIGHT * row));
+        gameObjects().addGameObject(bricks[(row * numOfBricksCols) + col]);
+    }
+
+    private void resetSettings() {
+        for (int row = 0; row < numOfBricksRows; row++) {
+            for (int col = 0; col < numOfBricksCols; col++) {
+                gameObjects().removeGameObject(bricks[(row * numOfBricksCols) + col]);
+            }
+        }
+        createBricks(windowDimensions);
+        userPaddle.setCenter(
+                new Vector2(windowDimensions.x()/2, (int)windowDimensions.y()-30));
+        ball.setCenter(windowDimensions.mult(0.5F));
+        setRandomVelocity();
+    }
+
+    public static void main(String[] args) {
+
+        BouncingBallGameManager b = new BouncingBallGameManager(
+                "Bouncing Ball",
+                new Vector2(700, 500));
+        if (args.length >= 2) {
+            b.numOfBricksCols = Integer.parseInt(args[0]);
+            b.numOfBricksRows = Integer.parseInt(args[1]);
+        }
+        b.run();
+    }
+}

@@ -1,4 +1,4 @@
-package bricker.brick_strategies;
+package bouncing_ball_from_ta.brick_strategies;
 
 import danogl.GameObject;
 
