@@ -20,7 +20,7 @@ public class LifeCounter extends GameObject {
     public LifeCounter(ImageReader imageReader, Vector2 windowDimensions, GameObjectCollection gameObjectCollection) {
         super(Vector2.ZERO, Vector2.ZERO, null);
         Renderable numericImage = new TextRenderable(Integer.toString(livesLeft));
-        this.numericLifeCounter = new NumericLifeCounter(Vector2.ZERO, NUM_COUNTER_DIM, numericImage);
+        this.numericLifeCounter = new NumericLifeCounter(Vector2.ZERO, NUM_COUNTER_DIM, numericImage, livesLeft);
         this.gameObjectCollection = gameObjectCollection;
         ImageRenderable graphicLifeCounterImage = imageReader.readImage("assets/heart.png", true);
         this.graphicLifeCounter = new GraphicLifeCounter(graphicLifeCounterImage, livesLeft, windowDimensions, gameObjectCollection);
