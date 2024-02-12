@@ -33,11 +33,13 @@ public class Paddle extends GameObject {
         this.leftWallX = leftWallX;
         this.setTag("UserPaddle");
     }
+
     public void onCollisionEnter(GameObject other, Collision collision) {
         super.onCollisionEnter(other, collision);
         Vector2 newVel = getVelocity().flipped(collision.getNormal());
         setVelocity(newVel);
     }
+
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);

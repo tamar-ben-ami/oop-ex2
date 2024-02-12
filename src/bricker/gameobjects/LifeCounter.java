@@ -12,9 +12,9 @@ import danogl.util.Vector2;
 public class LifeCounter extends GameObject {
     private static final int INITIAL_NUM_LIVES = 3;
     private int livesLeft = INITIAL_NUM_LIVES;
-    private GraphicLifeCounter graphicLifeCounter;
-    private NumericLifeCounter numericLifeCounter;
-    private GameObjectCollection gameObjectCollection;
+    private final GraphicLifeCounter graphicLifeCounter;
+    private final NumericLifeCounter numericLifeCounter;
+    private final GameObjectCollection gameObjectCollection;
     private static final Vector2 NUM_COUNTER_DIM = new Vector2(30, 30);
 
     public LifeCounter(ImageReader imageReader, Vector2 windowDimensions, GameObjectCollection gameObjectCollection) {
@@ -34,7 +34,6 @@ public class LifeCounter extends GameObject {
 
     public void decreaseLife() {
         livesLeft -= 1;
-        System.out.println(livesLeft);
         numericLifeCounter.updateNumLives(livesLeft);
         graphicLifeCounter.updateNumLives(livesLeft);
     }

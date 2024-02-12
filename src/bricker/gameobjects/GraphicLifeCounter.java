@@ -32,7 +32,7 @@ public class GraphicLifeCounter extends GameObject {
     }
 
     public void updateNumLives(int numLives) {
-        if (numLives <= curr_life) {
+        while (numLives <= curr_life) {
             decreaseLife();
         }
     }

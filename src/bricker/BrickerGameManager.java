@@ -29,7 +29,6 @@ public class BrickerGameManager extends GameManager {
     private Vector2 windowDimensions;
     private WindowController windowController;
     private Paddle paddle;
-    private Brick brick;
     private Brick[] bricks;
     private BasicCollisionStrategy basicCollisionStrategy;
     private int numOfBricksRows = NUM_OF_BRICKS_ROWS;
@@ -116,7 +115,7 @@ public class BrickerGameManager extends GameManager {
     private void createBall(SoundReader soundReader, WindowController windowController) {
         Renderable ballImage =
                 imageReader.readImage("assets/ball.png", true);
-        Sound collisionSound = soundReader.readSound("assets/blop.wav");
+        Sound collisionSound = soundReader.readSound("assets/blop_cut_silenced.wav");
         ball = new Ball(
                 Vector2.ZERO, new Vector2(BALL_RADIUS, BALL_RADIUS), ballImage, collisionSound);
 
@@ -194,10 +193,9 @@ public class BrickerGameManager extends GameManager {
 
     private void createBrick(int row, int col, float brickWidth, Renderable brickImage) {
         bricks[(row * numOfBricksCols) + col] =
-                new Brick(Vector2.ZERO, new Vector2(brickWidth, BRICK_HEIGHT),
+                new Brick(new Vector2(BORDER_WIDTH + brickWidth * col, BORDER_WIDTH + BRICK_HEIGHT * row),
+                        new Vector2(brickWidth, BRICK_HEIGHT),
                         brickImage, basicCollisionStrategy);
-        bricks[(row * numOfBricksCols) + col].setTopLeftCorner(
-                new Vector2(BORDER_WIDTH + brickWidth * col, BORDER_WIDTH + BRICK_HEIGHT * row));
         gameObjects().addGameObject(bricks[(row * numOfBricksCols) + col]);
     }
 
