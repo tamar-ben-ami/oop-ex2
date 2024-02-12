@@ -11,6 +11,7 @@ import danogl.collisions.Layer;
 import danogl.components.CoordinateSpace;
 import danogl.gui.*;
 import danogl.gui.rendering.Renderable;
+import danogl.util.Counter;
 import danogl.util.Vector2;
 
 import java.util.Random;
@@ -25,6 +26,10 @@ public class BrickerGameManager extends GameManager {
     private static final int NUM_OF_BRICKS_COLS = 8;
     private static final int BRICK_HEIGHT = 15;
     private static final String BALL_TAG = "Ball";
+    public static final String YOU_LOSE = "You Lose!";
+    public static final String PLAY_AGAIN = " Play again?";
+    public static final String YOU_WIN = "You win!";
+    public static final int ZERO = 0;
     private Ball ball;
     private Vector2 windowDimensions;
     private WindowController windowController;
@@ -35,7 +40,7 @@ public class BrickerGameManager extends GameManager {
     private int numOfBricksCols = NUM_OF_BRICKS_COLS;
     private ImageReader imageReader;
     private LifeCounter lifeCounter;
-
+    private Counter bricksCounter;
 
 
     public BrickerGameManager(String windowTitle, Vector2 windowDimensions) {
@@ -84,7 +89,7 @@ public class BrickerGameManager extends GameManager {
         String prompt = "";
         if(ballHeight < 0) {
             //we lost
-            prompt = "You win!";
+            prompt = YOU_WIN;
         }
         if(ballHeight > windowDimensions.y()) {
             lifeCounter.decreaseLife();
@@ -92,11 +97,14 @@ public class BrickerGameManager extends GameManager {
                 resetSettings();
             }
             else {
-                prompt = "You Lose!";
+                prompt = YOU_LOSE;
             }
         }
+        if (bricksCounter.value() == ZERO) {
+            prompt = YOU_WIN;
+        }
         if(!prompt.isEmpty()) {
-            prompt += " Play again?";
+            prompt += PLAY_AGAIN;
             if(windowController.openYesNoDialog(prompt))
                 windowController.resetGame();
             else
@@ -183,6 +191,7 @@ public class BrickerGameManager extends GameManager {
         basicCollisionStrategy = new BasicCollisionStrategy(gameObjects(), BALL_TAG);
 
         bricks = new Brick[numOfBricksCols * numOfBricksRows];
+        bricksCounter = new Counter(numOfBricksCols * numOfBricksRows);
         float brickWidth = (windowDimensions.x() - BORDER_WIDTH * 2) / numOfBricksCols;
         for (int row = 0; row < numOfBricksRows; row++) {
             for (int col = 0; col < numOfBricksCols; col++) {
@@ -195,7 +204,7 @@ public class BrickerGameManager extends GameManager {
         bricks[(row * numOfBricksCols) + col] =
                 new Brick(new Vector2(BORDER_WIDTH + brickWidth * col, BORDER_WIDTH + BRICK_HEIGHT * row),
                         new Vector2(brickWidth, BRICK_HEIGHT),
-                        brickImage, basicCollisionStrategy);
+                        brickImage, basicCollisionStrategy, bricksCounter);
         gameObjects().addGameObject(bricks[(row * numOfBricksCols) + col]);
     }
 
