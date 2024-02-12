@@ -14,6 +14,7 @@ import danogl.gui.rendering.Renderable;
 import danogl.util.Counter;
 import danogl.util.Vector2;
 
+import java.awt.event.KeyEvent;
 import java.util.Random;
 
 public class BrickerGameManager extends GameManager {
@@ -41,6 +42,7 @@ public class BrickerGameManager extends GameManager {
     private ImageReader imageReader;
     private LifeCounter lifeCounter;
     private Counter bricksCounter;
+    private UserInputListener userInputListener;
 
 
     public BrickerGameManager(String windowTitle, Vector2 windowDimensions) {
@@ -54,6 +56,7 @@ public class BrickerGameManager extends GameManager {
                                WindowController windowController) {
         this.imageReader = imageReader;
         this.windowController = windowController;
+        this.userInputListener = inputListener;
         //initialization
         super.initializeGame(imageReader, soundReader, inputListener, windowController);
         windowDimensions = windowController.getWindowDimensions();
@@ -100,7 +103,7 @@ public class BrickerGameManager extends GameManager {
                 prompt = YOU_LOSE;
             }
         }
-        if (bricksCounter.value() == ZERO) {
+        if (bricksCounter.value() == ZERO | userInputListener.isKeyPressed(KeyEvent.VK_W)) {
             prompt = YOU_WIN;
         }
         if(!prompt.isEmpty()) {
@@ -209,12 +212,6 @@ public class BrickerGameManager extends GameManager {
     }
 
     private void resetSettings() {
-        for (int row = 0; row < numOfBricksRows; row++) {
-            for (int col = 0; col < numOfBricksCols; col++) {
-                gameObjects().removeGameObject(bricks[(row * numOfBricksCols) + col]);
-            }
-        }
-        createBricks(windowDimensions);
         paddle.setCenter(
                 new Vector2(windowDimensions.x()/2, (int)windowDimensions.y()-30));
         ball.setCenter(windowDimensions.mult(0.5F));
