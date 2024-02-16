@@ -23,12 +23,11 @@ public class Ball extends GameObject {
      *                      the object will not be rendered.
      * @param collisionSound The sound to play when the ball collides with something.
      */
-    public Ball(Vector2 topLeftCorner, Vector2 dimensions, Vector2 center, Renderable renderable,
+    public Ball(Vector2 center, Vector2 dimensions, Renderable renderable,
                     Sound collisionSound, String tag) {
-        super(topLeftCorner, dimensions, renderable);
+        super(center, dimensions, renderable);
         this.collisionSound = collisionSound;
         this.setTag(tag);
-        this.setCenter(center);
         setRandomVelocity();
     }
 

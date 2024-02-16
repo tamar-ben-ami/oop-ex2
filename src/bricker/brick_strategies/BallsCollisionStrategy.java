@@ -13,7 +13,7 @@ public class BallsCollisionStrategy implements CollisionStrategy{
 
     @Override
     public void onCollision(GameObject thisObj, GameObject otherObj) {
-        if (gameManager.isBall(otherObj)) {
+        if (gameManager.isMainBall(otherObj)) {
             gameManager.removeGameObject(thisObj);
             gameManager.createPucks(otherObj.getCenter(), NUM_OF_PUCKS);
         }

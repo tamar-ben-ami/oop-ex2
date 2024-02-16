@@ -47,6 +47,7 @@ public class BrickerGameManager extends GameManager {
     private Ball ball;
     private WindowController windowController;
     private Paddle paddle;
+    private boolean isSecondPaddle;
     private Brick[] bricks;
     private int numOfBricksRows = NUM_OF_BRICKS_ROWS;
     private int numOfBricksCols = NUM_OF_BRICKS_COLS;
@@ -137,8 +138,11 @@ public class BrickerGameManager extends GameManager {
                 imageReader.readImage(BALL_IMAGE, true);
         Sound collisionSound = soundReader.readSound(BALL_COLLISION_SOUND);
         ball = new Ball(
-                Vector2.ZERO, new Vector2(BALL_RADIUS, BALL_RADIUS), getWindowDim().mult(0.5F),
-                ballImage, collisionSound, BALL_TAG);
+                getWindowDim().mult(0.5F),
+                new Vector2(BALL_RADIUS, BALL_RADIUS),
+                ballImage,
+                collisionSound,
+                BALL_TAG);
         gameObjects().addGameObject(ball);
     }
 
@@ -147,8 +151,12 @@ public class BrickerGameManager extends GameManager {
         Sound collisionSound = soundReader.readSound(BALL_COLLISION_SOUND);
         Ball puck;
         for (int i = 0; i < numOfPucks; i++){
-            puck = new Ball(Vector2.ZERO, new Vector2((float) (BALL_RADIUS)*3/4, (float) (BALL_RADIUS)*3/4),
-                    center, puckImage, collisionSound, PUCK_TAG);
+            puck = new Ball(
+                    center,
+                    new Vector2((float) (BALL_RADIUS)*3/4, (float) (BALL_RADIUS)*3/4),
+                    puckImage,
+                    collisionSound,
+                    PUCK_TAG);
             gameObjects().addGameObject(puck);
         }
     }
@@ -157,14 +165,28 @@ public class BrickerGameManager extends GameManager {
     private void createPaddle() {
         Renderable paddleImage = imageReader.readImage(PADDLE_IMAGE, false);
         paddle = new Paddle(
-                Vector2.ZERO,
+                new Vector2(getWindowX()/2, (int) (getWindowY()-30)),
                 new Vector2(PADDLE_WIDTH, PADDLE_HEIGHT),
-                new Vector2(getWindowX()/2, (int)getWindowY()-30),
                 paddleImage,
                 userInputListener,
                 getWindowX() - BORDER_WIDTH,
                 BORDER_WIDTH);
         gameObjects().addGameObject(paddle);
+    }
+
+    public void createAdditionalPaddle(){
+        // check if exists paddle
+        if (isSecondPaddle){return;}
+            isSecondPaddle = true;
+            Renderable paddleImage = imageReader.readImage(PADDLE_IMAGE, false);
+            paddle = new Paddle(
+                    new Vector2(getWindowX()/2, (int) (getWindowY()/2)),
+                    new Vector2(PADDLE_WIDTH, PADDLE_HEIGHT),
+                    paddleImage,
+                    userInputListener,
+                    getWindowX() - BORDER_WIDTH,
+                    BORDER_WIDTH);
+            gameObjects().addGameObject(paddle);
     }
 
 
@@ -227,8 +249,6 @@ public class BrickerGameManager extends GameManager {
     }
 
     private void resetSettings() {
-        paddle.setCenter(
-                new Vector2(getWindowX()/2, (int)getWindowY()-30));
         ball.setCenter(getWindowDim().mult(0.5F));
         ball.setRandomVelocity();
     }
@@ -245,8 +265,11 @@ public class BrickerGameManager extends GameManager {
         return getWindowDim().y();
     }
 
-    public boolean isBall(GameObject gameObject) {
+    public boolean isMainBall(GameObject gameObject) {
         return gameObject.getTag().equals(BALL_TAG);
+    }
+    public boolean isMainPaddle(GameObject gameObject) {
+        return gameObject.equals(paddle);
     }
 
     public static void main(String[] args) {

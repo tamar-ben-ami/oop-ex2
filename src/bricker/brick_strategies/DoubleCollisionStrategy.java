@@ -22,7 +22,7 @@ public class DoubleCollisionStrategy implements CollisionStrategy{
 
     @Override
     public void onCollision(GameObject thisObj, GameObject otherObj) {
-        if (gameManager.isBall(otherObj)) {
+        if (gameManager.isMainBall(otherObj)) {
             gameManager.removeGameObject(thisObj);
             for (int i = 0; i < count_strategies; i++) {
                 collisionStrategies[i].onCollision(thisObj, otherObj);

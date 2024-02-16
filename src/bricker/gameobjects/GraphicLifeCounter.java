@@ -39,7 +39,7 @@ public class GraphicLifeCounter extends GameObject {
 
     private void decreaseLife() {
         if (curr_life >= 0) {
-            this.gameObjectCollection.removeGameObject(gameObjects[curr_life]);
+            gameObjectCollection.removeGameObject(gameObjects[curr_life]);
             curr_life -= 1;
         }
     }

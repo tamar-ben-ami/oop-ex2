@@ -1,5 +1,6 @@
 package bricker.gameobjects;
 
+import bricker.BrickerGameManager;
 import danogl.GameObject;
 import danogl.collisions.Collision;
 import danogl.gui.UserInputListener;
@@ -10,10 +11,13 @@ import java.awt.event.KeyEvent;
 
 public class Paddle extends GameObject {
     private static final double MOVEMENT_SPEED = 400;
-    private UserInputListener inputListener;
-    private float width;
-    private double rightWallX;
-    private double leftWallX;
+    private final UserInputListener inputListener;
+    private final float width;
+    private final double rightWallX;
+    private final double leftWallX;
+    private int countCollision = 0;
+    private boolean disappearingTimer = false;
+    private BrickerGameManager gameManager = null;
 
     /**
      * Construct a new GameObject instance.
@@ -21,10 +25,13 @@ public class Paddle extends GameObject {
      *                      Note that (0,0) is the top-left corner of the window.
      * @param dimensions    Width and height in window coordinates.
      * @param renderable    The renderable representing the object. Can be null, in which case
-     * @param inputListener
+     *                      the object will not be rendered.
+     * @param inputListener The input listener to use for this paddle.
+     * @param rightWallX    The x coordinate of the right wall.
+     * @param leftWallX     The x coordinate of the left wall.
      */
-    public Paddle(Vector2 topLeftCorner, Vector2 dimensions, Vector2 center,
-                  Renderable renderable, UserInputListener inputListener,
+    public Paddle(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable,
+                  UserInputListener inputListener,
                   double rightWallX, double leftWallX) {
         super(topLeftCorner, dimensions, renderable);
         this.inputListener = inputListener;
@@ -32,13 +39,19 @@ public class Paddle extends GameObject {
         this.rightWallX = rightWallX;
         this.leftWallX = leftWallX;
         this.setTag("UserPaddle");
-        this.setCenter(center);
     }
 
     public void onCollisionEnter(GameObject other, Collision collision) {
         super.onCollisionEnter(other, collision);
         Vector2 newVel = getVelocity().flipped(collision.getNormal());
         setVelocity(newVel);
+        // if not the main paddle and has collided 4 times, remove the paddle
+        if (disappearingTimer) {
+            countCollision++;
+            if (countCollision == 4 && !gameManager.isMainPaddle(this)) {
+                gameManager.removeGameObject(this);
+            }
+        }
     }
 
     @Override
@@ -67,5 +80,10 @@ public class Paddle extends GameObject {
             return Vector2.ZERO;
         }
         return movementDir;
+    }
+
+    private void setDisappearingTimer(BrickerGameManager gameManager){
+        this.gameManager = gameManager;
+        disappearingTimer = true;
     }
 }
