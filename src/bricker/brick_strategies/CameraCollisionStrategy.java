@@ -13,7 +13,7 @@ public class CameraCollisionStrategy implements CollisionStrategy{
     public void onCollision(GameObject thisObj, GameObject otherObj) {
         if (gameManager.isBall(otherObj)) {
             gameManager.removeGameObject(thisObj);
-//            brickerGameManager.cameraBallZoom();
+//            gameManager.cameraBallZoom();
         }
     }
 }

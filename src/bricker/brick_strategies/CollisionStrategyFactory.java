@@ -12,26 +12,23 @@ public class CollisionStrategyFactory {
     private static final String[] SPEICAL_STRATEGIES = {"basic", "balls", "camera", "life", "paddle", "double"};
 
     // returns a collisionStrategy randomly based on probabilities
-    public static CollisionStrategy getRandomCollisionStrategy(BrickerGameManager brickerGameManager,
-                                                               String ballTag) {
+    public static CollisionStrategy getRandomCollisionStrategy(BrickerGameManager brickerGameManager) {
         Random rand = new Random();
         int randomValue = rand.nextInt(2);
         if (randomValue == 0) {
-            return buildCollisionStrategy("basic", brickerGameManager, ballTag);
+            return buildCollisionStrategy("basic", brickerGameManager);
         } else {
-            return getSpeicalCollisionStrategy(brickerGameManager, ballTag);
+            return getSpeicalCollisionStrategy(brickerGameManager);
         }
     }
 
-    public static CollisionStrategy getSpeicalCollisionStrategy(BrickerGameManager brickerGameManager,
-                                                                 String ballTag){
+    public static CollisionStrategy getSpeicalCollisionStrategy(BrickerGameManager brickerGameManager){
         Random rand = new Random();
         int randomValue = rand.nextInt(SPEICAL_STRATEGIES.length);
-        return buildCollisionStrategy(SPEICAL_STRATEGIES[randomValue], brickerGameManager, ballTag);
+        return buildCollisionStrategy(SPEICAL_STRATEGIES[randomValue], brickerGameManager);
     }
 
-    public static CollisionStrategy buildCollisionStrategy(String type, BrickerGameManager brickerGameManager,
-                                                           String ballTag) {
+    public static CollisionStrategy buildCollisionStrategy(String type, BrickerGameManager brickerGameManager) {
         switch (type) {
             case "basic":
                 return new BasicCollisionStrategy(brickerGameManager);

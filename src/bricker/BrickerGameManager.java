@@ -207,7 +207,7 @@ public class BrickerGameManager extends GameManager {
 
     private void createBrick(int row, int col, float brickWidth, Renderable brickImage) {
         CollisionStrategy collisionStrategy =
-                CollisionStrategyFactory.getRandomCollisionStrategy(this, BALL_TAG);
+                CollisionStrategyFactory.getRandomCollisionStrategy(this);
         bricks[(row * numOfBricksCols) + col] =
                 new Brick(new Vector2(BORDER_WIDTH + brickWidth * col, BORDER_WIDTH + BRICK_HEIGHT * row),
                         new Vector2(brickWidth, BRICK_HEIGHT),
@@ -261,8 +261,8 @@ public class BrickerGameManager extends GameManager {
     }
 
     public void removeGameObject(GameObject gameObject) {
+        // TODO: check if gameObject in gameObjects
         gameObjects().removeGameObject(gameObject);
         // TODO: if gameObject is brick, decrease bricksCounter
-
     }
 }

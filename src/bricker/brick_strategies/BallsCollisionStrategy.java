@@ -15,7 +15,7 @@ public class BallsCollisionStrategy implements CollisionStrategy{
     public void onCollision(GameObject thisObj, GameObject otherObj) {
         if (gameManager.isBall(otherObj)) {
             gameManager.removeGameObject(thisObj);
-//            brickerGameManager.createPucks(otherObj.getCenter(), NUM_OF_PUCKS);
+            gameManager.createPucks(otherObj.getCenter(), NUM_OF_PUCKS);
         }
 
     }
