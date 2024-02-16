@@ -1,21 +1,18 @@
 package bricker.brick_strategies;
 import bricker.BrickerGameManager;
 import danogl.GameObject;
-import danogl.collisions.GameObjectCollection;
 
 public class PaddleCollisionStrategy implements CollisionStrategy{
-    private final BrickerGameManager brickerGameManager;
-    private final String ballTag;
+    private final BrickerGameManager gameManager;
 
-    public PaddleCollisionStrategy(BrickerGameManager brickerGameManager, String ballTag) {
-        this.brickerGameManager = brickerGameManager;
-        this.ballTag = ballTag;
+    public PaddleCollisionStrategy(BrickerGameManager gameManager) {
+        this.gameManager = gameManager;
     }
 
     @Override
     public void onCollision(GameObject thisObj, GameObject otherObj) {
-        if (otherObj.getTag().equals(ballTag)) {
-            brickerGameManager.removeGameObject(thisObj);
+        if (gameManager.isBall(otherObj)) {
+            gameManager.removeGameObject(thisObj);
         }
     }
 }

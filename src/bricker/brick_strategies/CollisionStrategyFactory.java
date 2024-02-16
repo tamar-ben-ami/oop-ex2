@@ -34,17 +34,17 @@ public class CollisionStrategyFactory {
                                                            String ballTag) {
         switch (type) {
             case "basic":
-                return new BasicCollisionStrategy(brickerGameManager, ballTag);
+                return new BasicCollisionStrategy(brickerGameManager);
             case "balls":
-                return new BallsCollisionStrategy(brickerGameManager, ballTag);
+                return new BallsCollisionStrategy(brickerGameManager);
             case "camera":
-                return new CameraCollisionStrategy(brickerGameManager, ballTag);
+                return new CameraCollisionStrategy(brickerGameManager);
             case "life":
-                return new LifeCollisionStrategy(brickerGameManager, ballTag);
+                return new LifeCollisionStrategy(brickerGameManager);
             case "paddle":
-                return new PaddleCollisionStrategy(brickerGameManager, ballTag);
+                return new PaddleCollisionStrategy(brickerGameManager);
             case "double":
-                return new DoubleCollisionStrategy(brickerGameManager, ballTag);
+                return new DoubleCollisionStrategy(brickerGameManager);
             default:
                 return null;
         }

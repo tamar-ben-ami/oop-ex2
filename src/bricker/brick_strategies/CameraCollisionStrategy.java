@@ -1,22 +1,18 @@
 package bricker.brick_strategies;
 import bricker.BrickerGameManager;
 import danogl.GameObject;
-import danogl.collisions.GameObjectCollection;
-import danogl.util.Vector2;
 
 public class CameraCollisionStrategy implements CollisionStrategy{
-    private final BrickerGameManager brickerGameManager;
-    private final String ballTag;
+    private final BrickerGameManager gameManager;
 
-    public CameraCollisionStrategy(BrickerGameManager brickerGameManager, String ballTag) {
-        this.brickerGameManager = brickerGameManager;
-        this.ballTag = ballTag;
+    public CameraCollisionStrategy(BrickerGameManager gameManager) {
+        this.gameManager = gameManager;
     }
 
     @Override
     public void onCollision(GameObject thisObj, GameObject otherObj) {
-        if (otherObj.getTag().equals(ballTag)) {
-            brickerGameManager.removeGameObject(thisObj);
+        if (gameManager.isBall(otherObj)) {
+            gameManager.removeGameObject(thisObj);
 //            brickerGameManager.cameraBallZoom();
         }
     }

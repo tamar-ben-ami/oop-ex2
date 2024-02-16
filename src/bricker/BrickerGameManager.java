@@ -245,6 +245,10 @@ public class BrickerGameManager extends GameManager {
         return getWindowDim().y();
     }
 
+    public boolean isBall(GameObject gameObject) {
+        return gameObject.getTag().equals(BALL_TAG);
+    }
+
     public static void main(String[] args) {
 
         BrickerGameManager b = new BrickerGameManager(WINDOW_TITLE,
