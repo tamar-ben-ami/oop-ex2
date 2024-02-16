@@ -249,6 +249,9 @@ public class BrickerGameManager extends GameManager {
     }
 
     private void resetSettings() {
+        // TODO: reset only main paddle?
+        paddle.setCenter(
+                new Vector2(getWindowX()/2, (int)getWindowY()-30));
         ball.setCenter(getWindowDim().mult(0.5F));
         ball.setRandomVelocity();
     }
