@@ -23,7 +23,7 @@ public class Paddle extends GameObject {
      * @param renderable    The renderable representing the object. Can be null, in which case
      * @param inputListener
      */
-    public Paddle(Vector2 topLeftCorner, Vector2 dimensions,
+    public Paddle(Vector2 topLeftCorner, Vector2 dimensions, Vector2 center,
                   Renderable renderable, UserInputListener inputListener,
                   double rightWallX, double leftWallX) {
         super(topLeftCorner, dimensions, renderable);
@@ -32,6 +32,7 @@ public class Paddle extends GameObject {
         this.rightWallX = rightWallX;
         this.leftWallX = leftWallX;
         this.setTag("UserPaddle");
+        this.setCenter(center);
     }
 
     public void onCollisionEnter(GameObject other, Collision collision) {

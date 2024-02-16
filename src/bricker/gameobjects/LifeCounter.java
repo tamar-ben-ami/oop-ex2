@@ -11,6 +11,7 @@ import danogl.util.Vector2;
 
 public class LifeCounter extends GameObject {
     private static final int INITIAL_NUM_LIVES = 3;
+    private static final int MAX_NUM_LIVES = 4;
     private int livesLeft = INITIAL_NUM_LIVES;
     private final GraphicLifeCounter graphicLifeCounter;
     private final NumericLifeCounter numericLifeCounter;
@@ -27,9 +28,11 @@ public class LifeCounter extends GameObject {
     }
 
     public void increaseLife() {
-        livesLeft += 1;
-        numericLifeCounter.updateNumLives(livesLeft);
-        numericLifeCounter.updateNumLives(livesLeft);
+        if (livesLeft < MAX_NUM_LIVES) {
+            livesLeft += 1;
+            numericLifeCounter.updateNumLives(livesLeft);
+            graphicLifeCounter.updateNumLives(livesLeft);
+        }
     }
 
     public void decreaseLife() {
