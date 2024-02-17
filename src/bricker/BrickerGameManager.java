@@ -47,7 +47,8 @@ public class BrickerGameManager extends GameManager {
     private Ball ball;
     private WindowController windowController;
     private Paddle paddle;
-    private boolean isSecondPaddle;
+    private Paddle secondPaddle;
+    private boolean hasSecondPaddle;
     private Brick[] bricks;
     private int numOfBricksRows = NUM_OF_BRICKS_ROWS;
     private int numOfBricksCols = NUM_OF_BRICKS_COLS;
@@ -79,6 +80,7 @@ public class BrickerGameManager extends GameManager {
         createBorders();
         createBricks();
         createLifeCounter();
+        hasSecondPaddle = false;
     }
 
     private void createLifeCounter() {
@@ -174,19 +176,20 @@ public class BrickerGameManager extends GameManager {
         gameObjects().addGameObject(paddle);
     }
 
-    public void createAdditionalPaddle(){
+    public void createSecondPaddle(){
         // check if exists paddle
-        if (isSecondPaddle){return;}
-            isSecondPaddle = true;
+        if (hasSecondPaddle){return;}
+            hasSecondPaddle = true;
             Renderable paddleImage = imageReader.readImage(PADDLE_IMAGE, false);
-            paddle = new Paddle(
+            secondPaddle = new Paddle(
                     new Vector2(getWindowX()/2, (int) (getWindowY()/2)),
                     new Vector2(PADDLE_WIDTH, PADDLE_HEIGHT),
                     paddleImage,
                     userInputListener,
                     getWindowX() - BORDER_WIDTH,
                     BORDER_WIDTH);
-            gameObjects().addGameObject(paddle);
+            gameObjects().addGameObject(secondPaddle);
+            secondPaddle.setDisappearingTimer(this);
     }
 
 
@@ -252,6 +255,10 @@ public class BrickerGameManager extends GameManager {
         // TODO: reset only main paddle?
         paddle.setCenter(
                 new Vector2(getWindowX()/2, (int)getWindowY()-30));
+        if (hasSecondPaddle){
+            secondPaddle.setCenter(
+                    new Vector2(getWindowX()/2, (int)getWindowY()/2));
+        }
         ball.setCenter(getWindowDim().mult(0.5F));
         ball.setRandomVelocity();
     }
@@ -271,6 +278,7 @@ public class BrickerGameManager extends GameManager {
     public boolean isMainBall(GameObject gameObject) {
         return gameObject.getTag().equals(BALL_TAG);
     }
+
     public boolean isMainPaddle(GameObject gameObject) {
         return gameObject.equals(paddle);
     }
@@ -289,6 +297,9 @@ public class BrickerGameManager extends GameManager {
     public void removeGameObject(GameObject gameObject) {
         // TODO: check if gameObject in gameObjects
         gameObjects().removeGameObject(gameObject);
+        if (gameObject.equals(secondPaddle)) {
+            hasSecondPaddle = false;
+        }
         // TODO: if gameObject is brick, decrease bricksCounter
     }
 }

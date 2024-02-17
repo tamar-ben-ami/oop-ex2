@@ -15,8 +15,8 @@ public class Paddle extends GameObject {
     private final float width;
     private final double rightWallX;
     private final double leftWallX;
-    private int countCollision = 0;
-    private boolean disappearingTimer = false;
+    private int countCollision;
+    private boolean disappearingTimer;
     private BrickerGameManager gameManager = null;
 
     /**
@@ -38,6 +38,8 @@ public class Paddle extends GameObject {
         this.width = dimensions.x();
         this.rightWallX = rightWallX;
         this.leftWallX = leftWallX;
+        this.disappearingTimer = false;
+        this.countCollision = 0;
         this.setTag("UserPaddle");
     }
 
@@ -46,7 +48,7 @@ public class Paddle extends GameObject {
         Vector2 newVel = getVelocity().flipped(collision.getNormal());
         setVelocity(newVel);
         // if not the main paddle and has collided 4 times, remove the paddle
-        if (disappearingTimer) {
+        if (disappearingTimer && gameManager.isMainBall(other)) {
             countCollision++;
             if (countCollision == 4 && !gameManager.isMainPaddle(this)) {
                 gameManager.removeGameObject(this);
@@ -82,7 +84,7 @@ public class Paddle extends GameObject {
         return movementDir;
     }
 
-    private void setDisappearingTimer(BrickerGameManager gameManager){
+    public void setDisappearingTimer(BrickerGameManager gameManager){
         this.gameManager = gameManager;
         disappearingTimer = true;
     }

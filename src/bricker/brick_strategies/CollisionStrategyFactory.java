@@ -9,7 +9,7 @@ import java.util.Random;
  */
 
 public class CollisionStrategyFactory {
-    private static final String[] SPEICAL_STRATEGIES = {"basic", "balls", "camera", "life", "paddle", "double"};
+    private static final String[] SPECIAL_STRATEGIES = {"balls", "camera", "life", "paddle", "double"};
 
     // returns a collisionStrategy randomly based on probabilities
     public static CollisionStrategy getRandomCollisionStrategy(BrickerGameManager brickerGameManager) {
@@ -24,26 +24,19 @@ public class CollisionStrategyFactory {
 
     public static CollisionStrategy getSpeicalCollisionStrategy(BrickerGameManager brickerGameManager){
         Random rand = new Random();
-        int randomValue = rand.nextInt(SPEICAL_STRATEGIES.length);
-        return buildCollisionStrategy(SPEICAL_STRATEGIES[randomValue], brickerGameManager);
+        int randomValue = rand.nextInt(SPECIAL_STRATEGIES.length);
+        return buildCollisionStrategy(SPECIAL_STRATEGIES[randomValue], brickerGameManager);
     }
 
     public static CollisionStrategy buildCollisionStrategy(String type, BrickerGameManager brickerGameManager) {
-        switch (type) {
-            case "basic":
-                return new BasicCollisionStrategy(brickerGameManager);
-            case "balls":
-                return new BallsCollisionStrategy(brickerGameManager);
-            case "camera":
-                return new CameraCollisionStrategy(brickerGameManager);
-            case "life":
-                return new LifeCollisionStrategy(brickerGameManager);
-            case "paddle":
-                return new PaddleCollisionStrategy(brickerGameManager);
-            case "double":
-                return new DoubleCollisionStrategy(brickerGameManager);
-            default:
-                return null;
-        }
+        return switch (type) {
+            case "basic" -> new BasicCollisionStrategy(brickerGameManager);
+            case "balls" -> new BallsCollisionStrategy(brickerGameManager);
+            case "camera" -> new CameraCollisionStrategy(brickerGameManager);
+            case "life" -> new LifeCollisionStrategy(brickerGameManager);
+            case "paddle" -> new PaddleCollisionStrategy(brickerGameManager);
+            case "double" -> new DoubleCollisionStrategy(brickerGameManager);
+            default -> null;
+        };
     }
 }
