@@ -251,6 +251,7 @@ public class BrickerGameManager extends GameManager {
                         getWindowDim() //share the window dimensions
                 )
         );
+        ball.setZoomTimer(this);
     }
 
     private void resetSettings() {

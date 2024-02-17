@@ -13,7 +13,7 @@ public class CameraCollisionStrategy implements CollisionStrategy{
     public void onCollision(GameObject thisObj, GameObject otherObj) {
         if (gameManager.isMainBall(otherObj)) {
             gameManager.removeGameObject(thisObj);
-//            gameManager.cameraBallZoom();
+            gameManager.cameraBallZoom();
         }
     }
 }
