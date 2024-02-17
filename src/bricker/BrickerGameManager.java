@@ -29,6 +29,9 @@ public class BrickerGameManager extends GameManager {
     private static final int NUM_OF_BRICKS_ROWS = 7;
     private static final int NUM_OF_BRICKS_COLS = 8;
     private static final int BRICK_HEIGHT = 15;
+    private static final int DEFAULT_PADDLE_Y = 30;
+    private static final float CAMERA_ZOOM_FACTOR = 1.2f;
+    private static final float PUCK_RADIUS_FACTOR = 3/4f;
     public static final String WINDOW_TITLE = "Bouncing Ball";
     public static final String BACKGROUND_IMAGE = "assets/DARK_BG2_small.jpeg";
     public static final String BALL_IMAGE = "assets/ball.png";
@@ -131,7 +134,6 @@ public class BrickerGameManager extends GameManager {
         Renderable backgroundImage = imageReader.readImage(BACKGROUND_IMAGE, true);
         GameObject background = new GameObject(Vector2.ZERO, getWindowDim(), backgroundImage);
         background.setCoordinateSpace(CoordinateSpace.CAMERA_COORDINATES);
-
         gameObjects().addGameObject(background, Layer.BACKGROUND);
     }
 
@@ -155,7 +157,7 @@ public class BrickerGameManager extends GameManager {
         for (int i = 0; i < numOfPucks; i++){
             puck = new Ball(
                     center,
-                    new Vector2((float) (BALL_RADIUS)*3/4, (float) (BALL_RADIUS)*3/4),
+                    new Vector2((float) (BALL_RADIUS)*PUCK_RADIUS_FACTOR, (float) (BALL_RADIUS)*PUCK_RADIUS_FACTOR),
                     puckImage,
                     collisionSound,
                     PUCK_TAG);
@@ -167,7 +169,7 @@ public class BrickerGameManager extends GameManager {
     private void createPaddle() {
         Renderable paddleImage = imageReader.readImage(PADDLE_IMAGE, false);
         paddle = new Paddle(
-                new Vector2(getWindowX()/2, (int) (getWindowY()-30)),
+                new Vector2(getWindowX()/2, (int) (getWindowY()-DEFAULT_PADDLE_Y)),
                 new Vector2(PADDLE_WIDTH, PADDLE_HEIGHT),
                 paddleImage,
                 userInputListener,
@@ -245,7 +247,7 @@ public class BrickerGameManager extends GameManager {
                 new Camera(
                         ball, //object to follow
                         Vector2.ZERO, //follow the center of the object
-                        getWindowDim().mult(1.2f), //widen the frame a bit
+                        getWindowDim().mult(CAMERA_ZOOM_FACTOR), //widen the frame a bit
                         getWindowDim() //share the window dimensions
                 )
         );
