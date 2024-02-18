@@ -9,7 +9,9 @@ import java.util.Random;
  */
 
 public class CollisionStrategyFactory {
-    private static final String[] SPECIAL_STRATEGIES = {"balls", "camera", "life", "paddle", "double"};
+    // TODO check!!
+    private static final String[] SPECIAL_STRATEGIES = {"life"};
+//    private static final String[] SPECIAL_STRATEGIES = {"balls", "camera", "life", "paddle", "double"};
 
     // returns a collisionStrategy randomly based on probabilities
     public static CollisionStrategy getRandomCollisionStrategy(BrickerGameManager brickerGameManager) {

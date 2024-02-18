@@ -24,6 +24,11 @@ public class NumericLifeCounter extends GameObject {
         setColorByLives();
     }
 
+    @Override
+    public boolean shouldCollideWith(GameObject other) {
+        return !other.getTag().equals("Ball");
+    }
+
     private void setColorByLives() {
         switch (this.numLives) {
             case 2 -> this.renderable.setColor(Color.yellow);

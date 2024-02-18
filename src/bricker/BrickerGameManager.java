@@ -2,16 +2,14 @@ package bricker;
 
 import bricker.brick_strategies.CollisionStrategy;
 import bricker.brick_strategies.CollisionStrategyFactory;
-import bricker.gameobjects.Ball;
-import bricker.gameobjects.Brick;
-import bricker.gameobjects.LifeCounter;
-import bricker.gameobjects.Paddle;
+import bricker.gameobjects.*;
 import danogl.GameManager;
 import danogl.GameObject;
 import danogl.collisions.Layer;
 import danogl.components.CoordinateSpace;
 import danogl.gui.*;
 import danogl.gui.rendering.Camera;
+import danogl.gui.rendering.ImageRenderable;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Counter;
 import danogl.util.Vector2;
@@ -32,6 +30,7 @@ public class BrickerGameManager extends GameManager {
     private static final int DEFAULT_PADDLE_Y = 30;
     private static final float CAMERA_ZOOM_FACTOR = 1.2f;
     private static final float PUCK_RADIUS_FACTOR = 3/4f;
+    private static final Vector2 HEART_DIMENSION = new Vector2(30, 30);
     public static final String WINDOW_TITLE = "Bouncing Ball";
     public static final String BACKGROUND_IMAGE = "assets/DARK_BG2_small.jpeg";
     public static final String BALL_IMAGE = "assets/ball.png";
@@ -91,8 +90,13 @@ public class BrickerGameManager extends GameManager {
         lifeCounter.addToGameObjects();
     }
 
-    public void createLifeGift() {
-         // write a code create life object fall from the top of the screen and if caught by the paddle, increase the life counter
+    public void createLifeGift(Vector2 center) {
+        ImageRenderable lifeGiftImage = imageReader.readImage("assets/heart.png", true);
+        GameObject lifeGift = new LifeGift(new Vector2(center.x(),
+                center.y()), HEART_DIMENSION, lifeGiftImage, this);
+//        lifeGift.setVelocity(LIFE_GIFT_VELOCITY);
+        this.gameObjects().addGameObject(lifeGift);
+        // write a code create life object fall from the top of the screen and if caught by the paddle, increase the life counter
         // TODO: Tamar
     }
 
@@ -165,6 +169,9 @@ public class BrickerGameManager extends GameManager {
         }
     }
 
+    public LifeCounter getLifeCounter() {
+        return lifeCounter;
+    }
 
     private void createPaddle() {
         Renderable paddleImage = imageReader.readImage(PADDLE_IMAGE, false);
@@ -175,6 +182,7 @@ public class BrickerGameManager extends GameManager {
                 userInputListener,
                 getWindowX() - BORDER_WIDTH,
                 BORDER_WIDTH);
+        paddle.setTag("mainPaddle");
         gameObjects().addGameObject(paddle);
     }
 
@@ -197,24 +205,25 @@ public class BrickerGameManager extends GameManager {
 
     private void createBorders() {
         Renderable borderImage = imageReader.readImage(BORDER_IMAGE, false);
-        gameObjects().addGameObject(
-                new GameObject(
-                        Vector2.ZERO,
-                        new Vector2(BORDER_WIDTH, getWindowY()),
-                        borderImage)
-        );
-        gameObjects().addGameObject(
-                new GameObject(
-                        new Vector2(getWindowX()-BORDER_WIDTH, 0),
-                        new Vector2(BORDER_WIDTH, getWindowY()),
-                        borderImage)
-        );
-        gameObjects().addGameObject(
-                new GameObject(
-                        Vector2.ZERO,
-                        new Vector2(getWindowX(), BORDER_WIDTH),
-                        borderImage)
-        );
+        GameObject leftBorder = new GameObject(
+                Vector2.ZERO,
+                new Vector2(BORDER_WIDTH, getWindowY()),
+                borderImage);
+        GameObject rightBorder = new GameObject(
+                new Vector2(getWindowX()-BORDER_WIDTH, 0),
+                new Vector2(BORDER_WIDTH, getWindowY()),
+                borderImage);
+        GameObject upperBorder = new GameObject(
+                Vector2.ZERO,
+                new Vector2(getWindowX(), BORDER_WIDTH),
+                borderImage);
+        rightBorder.setTag("rightBorder");
+        leftBorder.setTag("leftBorder");
+        upperBorder.setTag("upperBorder");
+
+        gameObjects().addGameObject(rightBorder);
+        gameObjects().addGameObject(leftBorder);
+        gameObjects().addGameObject(upperBorder);
     }
 
     private void createBricks() {
@@ -274,7 +283,7 @@ public class BrickerGameManager extends GameManager {
         return getWindowDim().x();
     }
 
-    private float getWindowY(){
+    public float getWindowY(){
         return getWindowDim().y();
     }
 

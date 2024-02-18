@@ -32,6 +32,7 @@ public class LifeCounter extends GameObject {
             livesLeft += 1;
             numericLifeCounter.updateNumLives(livesLeft);
             graphicLifeCounter.updateNumLives(livesLeft);
+            gameObjectCollection.addGameObject(graphicLifeCounter.getGameObjects()[livesLeft - 1]);
         }
     }
 
