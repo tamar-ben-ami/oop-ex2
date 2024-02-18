@@ -30,16 +30,16 @@ public class LifeCounter extends GameObject {
     public void increaseLife() {
         if (livesLeft < MAX_NUM_LIVES) {
             livesLeft += 1;
-            numericLifeCounter.updateNumLives(livesLeft);
-            graphicLifeCounter.updateNumLives(livesLeft);
+            numericLifeCounter.increaseLife();
+            graphicLifeCounter.increaseLife();
             gameObjectCollection.addGameObject(graphicLifeCounter.getGameObjects()[livesLeft - 1]);
         }
     }
 
     public void decreaseLife() {
         livesLeft -= 1;
-        numericLifeCounter.updateNumLives(livesLeft);
-        graphicLifeCounter.updateNumLives(livesLeft);
+        numericLifeCounter.decreaseLife();
+        graphicLifeCounter.decreaseLife();
     }
 
     public boolean isAlive() {

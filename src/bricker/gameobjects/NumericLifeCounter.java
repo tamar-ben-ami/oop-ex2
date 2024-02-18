@@ -18,8 +18,14 @@ public class NumericLifeCounter extends GameObject {
         setColorByLives();
     }
 
-    public void updateNumLives(int numLives) {
-        this.numLives = numLives;
+    public void decreaseLife() {
+        this.numLives -= 1;
+        renderable.setString(Integer.toString(numLives));
+        setColorByLives();
+    }
+
+    public void increaseLife() {
+        this.numLives += 1;
         renderable.setString(Integer.toString(numLives));
         setColorByLives();
     }

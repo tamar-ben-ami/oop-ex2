@@ -11,9 +11,6 @@ public class LifeCollisionStrategy implements CollisionStrategy{
 
     @Override
     public void onCollision(GameObject thisObj, GameObject otherObj) {
-//        if (gameManager.isBorder(otherObj)) {
-//            System.out.println("FOUND THIS DUDE " + otherObj.getTag());
-//        }
         if (gameManager.isMainBall(otherObj)) {
             gameManager.removeGameObject(thisObj);
             gameManager.createLifeGift(thisObj.getCenter());

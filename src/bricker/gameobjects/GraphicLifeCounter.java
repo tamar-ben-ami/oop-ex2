@@ -35,19 +35,7 @@ public class GraphicLifeCounter extends GameObject {
         return gameObjects;
     }
 
-    public void updateNumLives(int numLives) {
-        if (curr_life == numLives - 1) {return;}
-        while (numLives <= curr_life) {
-            decreaseGraphicLife();
-        }
-        while (numLives > curr_life + 1) {
-            increaseGraphicLife();
-        }
-    }
-
-    private void decreaseGraphicLife() {
-        System.out.println("decrease from " + curr_life + " to " + (curr_life - 1));
-
+    public void decreaseLife() {
         if (curr_life >= 0) {
             gameObjectCollection.removeGameObject(gameObjects[curr_life]);
             curr_life -= 1;
@@ -55,7 +43,7 @@ public class GraphicLifeCounter extends GameObject {
         }
     }
 
-    private void increaseGraphicLife() {
+    public void increaseLife() {
         livesLeft += 1;
         curr_life += 1;
         GameObject[] temp = new GameObject[livesLeft];

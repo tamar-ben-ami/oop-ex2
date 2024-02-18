@@ -94,10 +94,8 @@ public class BrickerGameManager extends GameManager {
         ImageRenderable lifeGiftImage = imageReader.readImage("assets/heart.png", true);
         GameObject lifeGift = new LifeGift(new Vector2(center.x(),
                 center.y()), HEART_DIMENSION, lifeGiftImage, this);
-//        lifeGift.setVelocity(LIFE_GIFT_VELOCITY);
         this.gameObjects().addGameObject(lifeGift);
-        // write a code create life object fall from the top of the screen and if caught by the paddle, increase the life counter
-        // TODO: Tamar
+
     }
 
     @Override

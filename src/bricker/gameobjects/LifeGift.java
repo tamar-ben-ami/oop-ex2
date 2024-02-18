@@ -18,7 +18,6 @@ public class LifeGift extends GameObject {
     public LifeGift(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable, BrickerGameManager gameManager) {
         super(topLeftCorner, dimensions, renderable);
         this.gameManager = gameManager;
-        this.setTag("Brick");
         this.setVelocity(LIFE_GIFT_VELOCITY);
     }
 
@@ -26,9 +25,7 @@ public class LifeGift extends GameObject {
     public void update(float deltaTime) {
         super.update(deltaTime);
         if (this.getTopLeftCorner().y() > this.gameManager.getWindowY()) {
-            System.out.println("IM OUT");
             this.gameManager.removeGameObject(this);
-            System.out.println("removed");
         }
     }
 
@@ -37,7 +34,6 @@ public class LifeGift extends GameObject {
         if (other.getTag().equals("mainPaddle")) {
             this.gameManager.removeGameObject(this);
             this.gameManager.getLifeCounter().increaseLife();
-            System.out.println("MORE LIFEEE");
         }
     }
 
