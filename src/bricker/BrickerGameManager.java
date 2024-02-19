@@ -269,11 +269,11 @@ public class BrickerGameManager extends GameManager {
         ball.setRandomVelocity();
     }
 
-    private Vector2 getWindowDim(){
+    public Vector2 getWindowDim(){
         return windowController.getWindowDimensions();
     }
 
-    private float getWindowX(){
+    public float getWindowX(){
         return getWindowDim().x();
     }
 
