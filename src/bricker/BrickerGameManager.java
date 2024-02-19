@@ -87,7 +87,6 @@ public class BrickerGameManager extends GameManager {
 
     private void createLifeCounter() {
         lifeCounter = new LifeCounter(imageReader, getWindowDim(), gameObjects());
-        lifeCounter.addToGameObjects();
     }
 
     public void createLifeGift(Vector2 center) {
