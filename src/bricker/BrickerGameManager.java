@@ -214,9 +214,6 @@ public class BrickerGameManager extends GameManager {
                 Vector2.ZERO,
                 new Vector2(getWindowX(), BORDER_WIDTH),
                 borderImage);
-        rightBorder.setTag("rightBorder");
-        leftBorder.setTag("leftBorder");
-        upperBorder.setTag("upperBorder");
 
         gameObjects().addGameObject(rightBorder);
         gameObjects().addGameObject(leftBorder);

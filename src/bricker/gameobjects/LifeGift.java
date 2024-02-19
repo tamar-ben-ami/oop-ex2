@@ -14,7 +14,6 @@ public class LifeGift extends GameObject {
     private final BrickerGameManager gameManager;
     private static final Vector2 LIFE_GIFT_VELOCITY = new Vector2(0, 100f);
 
-
     public LifeGift(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable, BrickerGameManager gameManager) {
         super(topLeftCorner, dimensions, renderable);
         this.gameManager = gameManager;
