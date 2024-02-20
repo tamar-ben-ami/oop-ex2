@@ -47,7 +47,7 @@ public class LifeCounter extends GameObject {
     private void createNumericLifeCounter(GameObjectCollection gameObjectCollection) {
         numericImage = new TextRenderable(Integer.toString(livesLeft));
         GameObject numericLifeCounter = new GameObject(Vector2.ZERO, NUM_COUNTER_DIM, numericImage);
-        gameObjectCollection.addGameObject(numericLifeCounter, Layer.BACKGROUND);
+        gameObjectCollection.addGameObject(numericLifeCounter);
         numericImage.setColor(Color.green);
         setNumericCounterColorByLives();
     }
@@ -74,8 +74,7 @@ public class LifeCounter extends GameObject {
         livesLeft -= 1;
         numericImage.setString(Integer.toString(livesLeft));
         setNumericCounterColorByLives();
-        gameObjectCollection.removeGameObject(graphicCounterHearts[livesLeft]);
-
+        gameObjectCollection.removeGameObject(graphicCounterHearts[livesLeft], Layer.BACKGROUND);
     }
 
     public boolean isAlive() {
