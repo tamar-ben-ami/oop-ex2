@@ -13,6 +13,7 @@ public class Ball extends GameObject {
     private static final double BALL_SPEED = 350;
     private final Sound collisionSound;
     private BrickerGameManager gameManager;
+    private Vector2 topLeftCorner;
     private boolean zoomTimer;
     private int countCollision;
 
@@ -30,6 +31,7 @@ public class Ball extends GameObject {
     public Ball(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable,
                     Sound collisionSound, String tag) {
         super(topLeftCorner, dimensions, renderable);
+        this.topLeftCorner = topLeftCorner;
         this.collisionSound = collisionSound;
         this.setTag(tag);
         setRandomVelocity();
@@ -51,6 +53,11 @@ public class Ball extends GameObject {
             }
 
         }
+    }
+
+    public void reset(){
+        this.setCenter(topLeftCorner);
+        setRandomVelocity();
     }
 
     public void setRandomVelocity() {

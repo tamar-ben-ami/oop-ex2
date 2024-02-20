@@ -113,7 +113,7 @@ public class BrickerGameManager extends GameManager {
         if(ballHeight > getWindowY()) {
             lifeCounter.decreaseLife();
             if (lifeCounter.isAlive()) {
-                resetBall();
+                ball.reset();
             }
             else {
                 prompt = YOU_LOSE;
@@ -255,11 +255,6 @@ public class BrickerGameManager extends GameManager {
                 )
         );
         ball.setZoomTimer(this);
-    }
-
-    private void resetBall() {
-        ball.setCenter(getWindowDim().mult(0.5F));
-        ball.setRandomVelocity();
     }
 
     public Vector2 getWindowDim(){
