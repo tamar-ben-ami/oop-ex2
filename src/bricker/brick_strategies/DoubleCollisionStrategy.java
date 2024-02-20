@@ -29,7 +29,7 @@ public class DoubleCollisionStrategy implements CollisionStrategy{
     }
 
     /**
-     *
+     * remove brick from game and activate all the relevant collision strategy
      * @param thisObj the brick
      * @param otherObj the object that collided with the brick
      */
