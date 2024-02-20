@@ -2,6 +2,9 @@ package bricker.brick_strategies;
 import bricker.BrickerGameManager;
 import danogl.GameObject;
 
+/**
+ *
+ */
 public class LifeCollisionStrategy implements CollisionStrategy{
     private final BrickerGameManager gameManager;
 
