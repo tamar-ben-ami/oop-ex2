@@ -3,15 +3,27 @@ package bricker.brick_strategies;
 import bricker.BrickerGameManager;
 import danogl.GameObject;
 
+/**
+ * Basic collision strategy that removes the brick upon collision.
+ */
 public class BasicCollisionStrategy implements CollisionStrategy{
     //TODO add to read me
     private final BrickerGameManager gameManager;
 
+    /**
+     * Constructor for BasicCollisionStrategy.
+     * @param gameManager the game manager instance
+     */
     public BasicCollisionStrategy(BrickerGameManager gameManager) {
         this.gameManager = gameManager;
     }
 
 
+    /**
+     * When ball collided to the brick, remove the brick.
+     * @param thisObj the brick
+     * @param otherObj the object that collided with the brick
+     */
     @Override
     public void onCollision(GameObject thisObj, GameObject otherObj) {
         if (gameManager.isMainBall(otherObj)) {
