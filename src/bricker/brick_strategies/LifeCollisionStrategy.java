@@ -7,6 +7,9 @@ import danogl.GameObject;
  * which the paddle must "collect" in order to get life as a gift
  *
  */
+/**
+ * Collision strategy that removes the brick and creating a gift life
+ */
 public class LifeCollisionStrategy implements CollisionStrategy{
     private final BrickerGameManager gameManager;
 
@@ -19,8 +22,10 @@ public class LifeCollisionStrategy implements CollisionStrategy{
     }
 
     /**
-     * remove the object and creat falling heart
-     * the heart appears at the location of the center of the brick
+     * remove the object and creat falling gift life
+     * a heart object will fall from the center of the brick,
+     * which the paddle must "collect" in order to get life as a gift
+     * the life gift appears at the location of the center of the brick
      *
      * @param thisObj the brick
      * @param otherObj the object that collided with the brick
