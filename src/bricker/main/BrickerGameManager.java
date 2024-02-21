@@ -14,6 +14,7 @@ import danogl.gui.rendering.Renderable;
 import danogl.util.Counter;
 import danogl.util.Vector2;
 import java.awt.event.KeyEvent;
+import static bricker.main.Constants.*;
 
 /**
  * The BrickerGameManager class is an extension of GameManager.
@@ -30,28 +31,6 @@ import java.awt.event.KeyEvent;
  * @see GameManager
  */
 public class BrickerGameManager extends GameManager {
-
-
-    private static final float PUCK_RADIUS_FACTOR = 3/4f;
-    private static final Vector2 HEART_DIMENSION = new Vector2(30, 30);
-
-    /**
-     * bla bla bla
-     */
-    public static final String WINDOW_TITLE = "Bouncing Ball";
-    public static final String BACKGROUND_IMAGE = "assets/DARK_BG2_small.jpeg";
-    public static final String BALL_IMAGE = "assets/ball.png";
-    public static final String PUCKS_IMAGE = "assets/mockBall.png";
-    public static final String BALL_COLLISION_SOUND = "assets/blop_cut_silenced.wav";
-    public static final String PADDLE_IMAGE = "assets/paddle.png";
-    public static final String BORDER_IMAGE = "assets/brick.png";
-    public static final String BRICK_IMAGE = "assets/brick.png";
-    private static final String BALL_TAG = "Ball";
-    private static final String PUCK_TAG = "Puck";
-    public static final String YOU_LOSE = "You Lose!";
-    public static final String PLAY_AGAIN = " Play again?";
-    public static final String YOU_WIN = "You win!";
-    private static final int ZERO = 0;
 
     // Instance constants
     private Ball ball;
