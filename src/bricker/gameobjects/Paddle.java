@@ -11,6 +11,9 @@ import java.awt.event.KeyEvent;
 
 /**
  * Represents a paddle GameObject in the Bricker game.
+ *
+ * @author tamar, yaara
+ * @see GameObject
  */
 public class Paddle extends GameObject {
     private static final double MOVEMENT_SPEED = 400;  // Movement speed of the paddle

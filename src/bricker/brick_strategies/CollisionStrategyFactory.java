@@ -6,6 +6,9 @@ import java.util.Random;
 
 /**
  * Factory of CollisionStrategy
+ *
+ * @author tamar, yaara
+ * @see CollisionStrategy
  */
 public class CollisionStrategyFactory {
     private static final String[] SPECIAL_STRATEGIES = {"balls", "camera", "life", "paddle", "double"};

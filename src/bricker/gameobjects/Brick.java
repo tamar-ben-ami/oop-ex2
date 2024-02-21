@@ -9,6 +9,9 @@ import danogl.util.Vector2;
 
 /**
  * Represents a Brick GameObject in the Bricker game.
+ *
+ * @author tamar, yaara
+ * @see GameObject
  */
 public class Brick extends GameObject {
     private final Counter bricksCounter;

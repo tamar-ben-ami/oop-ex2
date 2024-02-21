@@ -5,6 +5,9 @@ import danogl.GameObject;
 
 /**
  * Basic collision strategy that removes the brick upon collision.
+ *
+ * @author tamar, yaara
+ * @see CollisionStrategy
  */
 public class BasicCollisionStrategy implements CollisionStrategy{
     //TODO add to read me

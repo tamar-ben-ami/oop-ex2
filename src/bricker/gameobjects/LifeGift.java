@@ -8,6 +8,9 @@ import danogl.util.Vector2;
 
 /**
  * Represents a LifeGift GameObject in the Bricker game.
+ *
+ * @author tamar, yaara
+ * @see GameObject
  */
 public class LifeGift extends GameObject {
     private final BrickerGameManager gameManager;

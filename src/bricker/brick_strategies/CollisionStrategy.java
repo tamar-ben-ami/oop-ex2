@@ -4,6 +4,8 @@ import danogl.GameObject;
 
 /**
  * Interface for brick's collision strategy.
+ *
+ * @author tamar, yaara
  */
 public interface CollisionStrategy {
     /**

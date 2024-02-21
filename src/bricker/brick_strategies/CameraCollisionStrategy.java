@@ -4,6 +4,9 @@ import danogl.GameObject;
 
 /**
  * Collision strategy that removes the brick and activates camera zoom upon collision.
+ *
+ * @author tamar, yaara
+ * @see CollisionStrategy
  */
 public class CameraCollisionStrategy implements CollisionStrategy{
     private final BrickerGameManager gameManager;

@@ -4,6 +4,9 @@ import danogl.GameObject;
 
 /**
  * Collision strategy that removes the brick and create a second paddle
+ *
+ * @author tamar, yaara
+ * @see CollisionStrategy
  */
 public class PaddleCollisionStrategy implements CollisionStrategy{
     private final BrickerGameManager gameManager;

@@ -12,6 +12,9 @@ import java.awt.*;
 
 /**
  * Represents a LifeCounter GameObject in the Bricker game.
+ *
+ * @author tamar, yaara
+ * @see GameObject
  */
 public class LifeCounter extends GameObject {
     private static final int INITIAL_NUM_LIVES = 3;

@@ -5,6 +5,9 @@ import danogl.GameObject;
 
 /**
  * Collision strategy that removes the brick and create two small puck balls
+ *
+ * @author tamar, yaara
+ * @see CollisionStrategy
  */
 public class BallsCollisionStrategy implements CollisionStrategy{
     private static final int NUM_OF_PUCKS = 3;

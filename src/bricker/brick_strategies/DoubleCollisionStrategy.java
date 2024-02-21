@@ -5,6 +5,9 @@ import danogl.GameObject;
 
 /**
  * Collision strategy that randomize two special strategies
+ *
+ * @author tamar, yaara
+ * @see CollisionStrategy
  */
 public class DoubleCollisionStrategy implements CollisionStrategy{
     private final BrickerGameManager gameManager;

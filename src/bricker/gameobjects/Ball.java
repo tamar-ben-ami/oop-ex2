@@ -1,5 +1,6 @@
 package bricker.gameobjects;
 
+import bricker.brick_strategies.CollisionStrategy;
 import bricker.main.BrickerGameManager;
 import danogl.GameObject;
 import danogl.collisions.Collision;
@@ -11,6 +12,9 @@ import java.util.Random;
 
 /**
  * Represents a ball GameObject in the Bricker game.
+ *
+ * @author tamar, yaara
+ * @see GameObject
  */
 public class Ball extends GameObject {
     private static final double BALL_SPEED = 350; // Initial speed of the ball

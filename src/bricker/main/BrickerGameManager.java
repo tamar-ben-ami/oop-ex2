@@ -13,27 +13,38 @@ import danogl.gui.rendering.ImageRenderable;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Counter;
 import danogl.util.Vector2;
-
 import java.awt.event.KeyEvent;
 
 /**
  * Represents a BrickerGameManager GameManager in the Bricker game.
+ *
+ * @author tamar, yaara
+ * @see GameManager
  */
 public class BrickerGameManager extends GameManager {
 
+    // Game objects size
     private static final int WINDOW_WIDTH = 700;
     private static final int WINDOW_HEIGHT = 500;
     private static final int BORDER_WIDTH = 10;
     private static final int PADDLE_HEIGHT = 20;
     private static final int PADDLE_WIDTH = 100;
     public static final int BALL_RADIUS = 35;
+    private static final int BRICK_HEIGHT = 15;
+
+    // Number of bricks
     private static final int NUM_OF_BRICKS_ROWS = 7;
     private static final int NUM_OF_BRICKS_COLS = 8;
-    private static final int BRICK_HEIGHT = 15;
+
+    // Paddle position
     private static final int DEFAULT_PADDLE_Y = 30;
+
+    // Factor
     private static final float CAMERA_ZOOM_FACTOR = 1.2f;
     private static final float PUCK_RADIUS_FACTOR = 3/4f;
     private static final Vector2 HEART_DIMENSION = new Vector2(30, 30);
+
+    // Strings
     public static final String WINDOW_TITLE = "Bouncing Ball";
     public static final String BACKGROUND_IMAGE = "assets/DARK_BG2_small.jpeg";
     public static final String BALL_IMAGE = "assets/ball.png";
@@ -49,6 +60,7 @@ public class BrickerGameManager extends GameManager {
     public static final String YOU_WIN = "You win!";
     private static final int ZERO = 0;
 
+    // Instance constants
     private Ball ball;
     private WindowController windowController;
     private Paddle paddle;
@@ -82,7 +94,7 @@ public class BrickerGameManager extends GameManager {
      * @param inputListener Contains a single method: isKeyPressed, which returns whether
      *                      a given key is currently pressed by the user or not. See its
      *                      documentation.
-     * @param windowController Contains an array of helpful, self explanatory methods
+     * @param windowController Contains an array of helpful, self-explanatory methods
      *                         concerning the window.
      * @see ImageReader
      * @see SoundReader
