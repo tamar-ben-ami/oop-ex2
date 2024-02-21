@@ -31,60 +31,13 @@ import java.awt.event.KeyEvent;
  */
 public class BrickerGameManager extends GameManager {
 
-    /**
-     * Window width
-     */
-    private static final int WINDOW_WIDTH = 700;
-    /**
-     * Window height
-     */
-    private static final int WINDOW_HEIGHT = 500;
-    /**
-     * Border width
-     */
-    private static final int BORDER_WIDTH = 10;
-    /**
-     * Paddle height
-     */
-    private static final int PADDLE_HEIGHT = 20;
-    /**
-     * Paddle width
-     */
-    private static final int PADDLE_WIDTH = 100;
-    /**
-     * Ball radius
-     */
-    public static final int BALL_RADIUS = 35;
-    /**
-     * Brick height
-     */
-    private static final int BRICK_HEIGHT = 15;
 
-    /**
-     * Number of bricks rows
-     */
-    private static final int NUM_OF_BRICKS_ROWS = 7;
-    /**
-     * Number of bricks columns
-     */
-    private static final int NUM_OF_BRICKS_COLS = 8;
-
-    /**
-     * Default paddle y coordinate
-     */
-    private static final int DEFAULT_PADDLE_Y = 30;
-
-    /**
-     * Camera zoom factor
-     */
-    private static final float CAMERA_ZOOM_FACTOR = 1.2f;
-    /**
-     * Puck radius factor
-     */
     private static final float PUCK_RADIUS_FACTOR = 3/4f;
     private static final Vector2 HEART_DIMENSION = new Vector2(30, 30);
 
-    // Strings
+    /**
+     * bla bla bla
+     */
     public static final String WINDOW_TITLE = "Bouncing Ball";
     public static final String BACKGROUND_IMAGE = "assets/DARK_BG2_small.jpeg";
     public static final String BALL_IMAGE = "assets/ball.png";
@@ -107,8 +60,8 @@ public class BrickerGameManager extends GameManager {
     private Paddle secondPaddle;
     private boolean hasSecondPaddle;
     private Brick[] bricks;
-    private int numOfBricksRows = NUM_OF_BRICKS_ROWS;
-    private int numOfBricksCols = NUM_OF_BRICKS_COLS;
+    private int numOfBricksRows = Constants.NUM_OF_BRICKS_ROWS;
+    private int numOfBricksCols = Constants.NUM_OF_BRICKS_COLS;
     private ImageReader imageReader;
     private SoundReader soundReader;
     private LifeCounter lifeCounter;
@@ -241,7 +194,7 @@ public class BrickerGameManager extends GameManager {
         Sound collisionSound = soundReader.readSound(BALL_COLLISION_SOUND);
         ball = new Ball(
                 getWindowDim().mult(0.5F),
-                new Vector2(BALL_RADIUS, BALL_RADIUS),
+                new Vector2(Constants.BALL_RADIUS, Constants.BALL_RADIUS),
                 ballImage,
                 collisionSound,
                 BALL_TAG);
@@ -258,8 +211,8 @@ public class BrickerGameManager extends GameManager {
         for (int i = 0; i < numOfPucks; i++){
             puck = new Ball(
                     center,
-                    new Vector2((float) (BALL_RADIUS)*PUCK_RADIUS_FACTOR,
-                            (float) (BALL_RADIUS)*PUCK_RADIUS_FACTOR),
+                    new Vector2((float) (Constants.BALL_RADIUS)*PUCK_RADIUS_FACTOR,
+                            (float) (Constants.BALL_RADIUS)*PUCK_RADIUS_FACTOR),
                     puckImage,
                     collisionSound,
                     PUCK_TAG);
@@ -281,12 +234,12 @@ public class BrickerGameManager extends GameManager {
     private void createPaddle() {
         Renderable paddleImage = imageReader.readImage(PADDLE_IMAGE, false);
         paddle = new Paddle(
-                new Vector2(getWindowX()/2, (int) (getWindowY()-DEFAULT_PADDLE_Y)),
-                new Vector2(PADDLE_WIDTH, PADDLE_HEIGHT),
+                new Vector2(getWindowX()/2, (int) (getWindowY()-Constants.DEFAULT_PADDLE_Y)),
+                new Vector2(Constants.PADDLE_WIDTH, Constants.PADDLE_HEIGHT),
                 paddleImage,
                 userInputListener,
-                getWindowX() - BORDER_WIDTH,
-                BORDER_WIDTH);
+                getWindowX() - Constants.BORDER_WIDTH,
+                Constants.BORDER_WIDTH);
         paddle.setTag("mainPaddle");
         gameObjects().addGameObject(paddle);
     }
@@ -301,11 +254,11 @@ public class BrickerGameManager extends GameManager {
             Renderable paddleImage = imageReader.readImage(PADDLE_IMAGE, false);
             secondPaddle = new Paddle(
                     new Vector2(getWindowX()/2, (int) (getWindowY()/2)),
-                    new Vector2(PADDLE_WIDTH, PADDLE_HEIGHT),
+                    new Vector2(Constants.PADDLE_WIDTH, Constants.PADDLE_HEIGHT),
                     paddleImage,
                     userInputListener,
-                    getWindowX() - BORDER_WIDTH,
-                    BORDER_WIDTH);
+                    getWindowX() - Constants.BORDER_WIDTH,
+                    Constants.BORDER_WIDTH);
             gameObjects().addGameObject(secondPaddle);
             secondPaddle.setDisappearingTimer(this);
     }
@@ -317,15 +270,15 @@ public class BrickerGameManager extends GameManager {
         Renderable borderImage = imageReader.readImage(BORDER_IMAGE, false);
         GameObject leftBorder = new GameObject(
                 Vector2.ZERO,
-                new Vector2(BORDER_WIDTH, getWindowY()),
+                new Vector2(Constants.BORDER_WIDTH, getWindowY()),
                 borderImage);
         GameObject rightBorder = new GameObject(
-                new Vector2(getWindowX()-BORDER_WIDTH, 0),
-                new Vector2(BORDER_WIDTH, getWindowY()),
+                new Vector2(getWindowX()-Constants.BORDER_WIDTH, 0),
+                new Vector2(Constants.BORDER_WIDTH, getWindowY()),
                 borderImage);
         GameObject upperBorder = new GameObject(
                 Vector2.ZERO,
-                new Vector2(getWindowX(), BORDER_WIDTH),
+                new Vector2(getWindowX(), Constants.BORDER_WIDTH),
                 borderImage);
 
         gameObjects().addGameObject(rightBorder);
@@ -342,7 +295,7 @@ public class BrickerGameManager extends GameManager {
 
         bricks = new Brick[numOfBricksCols * numOfBricksRows];
         bricksCounter = new Counter(numOfBricksCols * numOfBricksRows);
-        float brickWidth = (getWindowX() - BORDER_WIDTH * 2) / numOfBricksCols;
+        float brickWidth = (getWindowX() - Constants.BORDER_WIDTH * 2) / numOfBricksCols;
         for (int row = 0; row < numOfBricksRows; row++) {
             for (int col = 0; col < numOfBricksCols; col++) {
 
@@ -362,8 +315,9 @@ public class BrickerGameManager extends GameManager {
         CollisionStrategy collisionStrategy =
                 CollisionStrategyFactory.getRandomCollisionStrategy(this);
         bricks[(row * numOfBricksCols) + col] =
-                new Brick(new Vector2(BORDER_WIDTH + brickWidth * col, BORDER_WIDTH + BRICK_HEIGHT * row),
-                        new Vector2(brickWidth, BRICK_HEIGHT),
+                new Brick(new Vector2(Constants.BORDER_WIDTH + brickWidth * col,
+                        Constants.BORDER_WIDTH + Constants.BRICK_HEIGHT * row),
+                        new Vector2(brickWidth, Constants.BRICK_HEIGHT),
                         brickImage,  collisionStrategy, bricksCounter);
         gameObjects().addGameObject(bricks[(row * numOfBricksCols) + col]);
     }
@@ -376,7 +330,7 @@ public class BrickerGameManager extends GameManager {
                 new Camera(
                         ball, //object to follow
                         Vector2.ZERO, //follow the center of the object
-                        getWindowDim().mult(CAMERA_ZOOM_FACTOR), //widen the frame a bit
+                        getWindowDim().mult(Constants.CAMERA_ZOOM_FACTOR), //widen the frame a bit
                         getWindowDim() //share the window dimensions
                 )
         );
@@ -385,23 +339,23 @@ public class BrickerGameManager extends GameManager {
 
     /**
      * This getter reutrns the dimensions of the game window
-     * @return
+     * @return Vector2 of the window dimensions
      */
     public Vector2 getWindowDim(){
         return windowController.getWindowDimensions();
     }
 
     /**
-     * This getter returns the x coordinate of the point
-     * @return
+     * This getter returns the x window dim
+     * @return float of the x window dim
      */
     public float getWindowX(){
         return getWindowDim().x();
     }
 
     /**
-     * This getter returns the y coordinate of the point
-     * @return
+     * This getter returns the y window dim
+     * @return float of the y window dim
      */
     public float getWindowY(){
         return getWindowDim().y();
@@ -432,7 +386,7 @@ public class BrickerGameManager extends GameManager {
     public static void main(String[] args) {
 
         BrickerGameManager b = new BrickerGameManager(WINDOW_TITLE,
-                new Vector2(WINDOW_WIDTH, WINDOW_HEIGHT));
+                new Vector2(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT));
         if (args.length >= 2) {
             b.numOfBricksCols = Integer.parseInt(args[0]);
             b.numOfBricksRows = Integer.parseInt(args[1]);
