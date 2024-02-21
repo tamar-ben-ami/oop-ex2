@@ -47,7 +47,8 @@ public class CollisionStrategyFactory {
      * @param brickerGameManager the game manager
      * @return a collision strategy instance
      */
-    public static CollisionStrategy buildCollisionStrategy(String type, BrickerGameManager brickerGameManager) {
+    public static CollisionStrategy buildCollisionStrategy(String type,
+                                                           BrickerGameManager brickerGameManager) {
         return switch (type) {
             case "basic" -> new BasicCollisionStrategy(brickerGameManager);
             case "balls" -> new BallsCollisionStrategy(brickerGameManager);

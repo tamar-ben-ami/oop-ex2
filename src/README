@@ -1,2 +1,20 @@
-yaara.berg, Tamarbenami
+yaara.berg, tamarbenami
 209009687, 315244772
+
+ 1. what design pattern we choose to remove bricks from the game? what are the pros and cons of using this pattern?
+
+
+2. how did we implement the life counter visualization? why did we choose to implement it this way?
+We implemented the life counter visualization with only one class LifeCounter.
+The LifeCounter class is responsible for creating and updating the life counter as the visualization.
+We choose to manage the life counter in one class because it allows for easy addition of new features
+in one place, and it allows for easy debugging and testing.
+Managing the life counter in one class also allows for easy access to the life counter from other classes,
+such as the Game class, which needs to update the life counter when a life is lost.
+
+3. briefly explain how we implemented each CollisionStrategy and additional classes that were added to the game.
+
+4. howe did we implement the DoubleCollision? why did we choose to implement it this way?
+how did we make sure no more than 3 strategies are used?
+
+

@@ -16,31 +16,71 @@ import danogl.util.Vector2;
 import java.awt.event.KeyEvent;
 
 /**
- * Represents a BrickerGameManager GameManager in the Bricker game.
+ * The BrickerGameManager class is an extension of GameManager.
+ * It is the main class of the Bricker game, and is responsible for
+ * initializing the game, creating the game objects, and updating the game.
+ * It also contains the main function that runs the game.
+ * The game is a simple game where the player controls a paddle to prevent
+ * a ball from falling off the screen. The ball bounces off the paddle and
+ * the walls, and when it hits a brick, the brick is removed from the game.
+ * The player has a limited number of lives, and the game ends when the ball
+ * falls off the screen or when all the bricks are removed.
  *
  * @author tamar, yaara
  * @see GameManager
  */
 public class BrickerGameManager extends GameManager {
 
-    // Game objects size
+    /**
+     * Window width
+     */
     private static final int WINDOW_WIDTH = 700;
+    /**
+     * Window height
+     */
     private static final int WINDOW_HEIGHT = 500;
+    /**
+     * Border width
+     */
     private static final int BORDER_WIDTH = 10;
+    /**
+     * Paddle height
+     */
     private static final int PADDLE_HEIGHT = 20;
+    /**
+     * Paddle width
+     */
     private static final int PADDLE_WIDTH = 100;
+    /**
+     * Ball radius
+     */
     public static final int BALL_RADIUS = 35;
+    /**
+     * Brick height
+     */
     private static final int BRICK_HEIGHT = 15;
 
-    // Number of bricks
+    /**
+     * Number of bricks rows
+     */
     private static final int NUM_OF_BRICKS_ROWS = 7;
+    /**
+     * Number of bricks columns
+     */
     private static final int NUM_OF_BRICKS_COLS = 8;
 
-    // Paddle position
+    /**
+     * Default paddle y coordinate
+     */
     private static final int DEFAULT_PADDLE_Y = 30;
 
-    // Factor
+    /**
+     * Camera zoom factor
+     */
     private static final float CAMERA_ZOOM_FACTOR = 1.2f;
+    /**
+     * Puck radius factor
+     */
     private static final float PUCK_RADIUS_FACTOR = 3/4f;
     private static final Vector2 HEART_DIMENSION = new Vector2(30, 30);
 
@@ -218,7 +258,8 @@ public class BrickerGameManager extends GameManager {
         for (int i = 0; i < numOfPucks; i++){
             puck = new Ball(
                     center,
-                    new Vector2((float) (BALL_RADIUS)*PUCK_RADIUS_FACTOR, (float) (BALL_RADIUS)*PUCK_RADIUS_FACTOR),
+                    new Vector2((float) (BALL_RADIUS)*PUCK_RADIUS_FACTOR,
+                            (float) (BALL_RADIUS)*PUCK_RADIUS_FACTOR),
                     puckImage,
                     collisionSound,
                     PUCK_TAG);
