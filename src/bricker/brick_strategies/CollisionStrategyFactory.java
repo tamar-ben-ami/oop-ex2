@@ -11,6 +11,11 @@ import java.util.Random;
  * @see CollisionStrategy
  */
 public class CollisionStrategyFactory {
+    /**
+     * default constructor of the class
+     */
+    public CollisionStrategyFactory() {}
+
     private static final String[] SPECIAL_STRATEGIES = {"balls", "camera", "life", "paddle", "double"};
 
     // returns a collisionStrategy randomly based on probabilities
