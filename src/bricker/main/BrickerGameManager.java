@@ -176,7 +176,8 @@ public class BrickerGameManager extends GameManager {
                 new Vector2(Constants.BALL_RADIUS, Constants.BALL_RADIUS),
                 ballImage,
                 collisionSound,
-                BALL_TAG);
+                BALL_TAG,
+                this);
         gameObjects().addGameObject(ball);
     }
 
@@ -194,7 +195,8 @@ public class BrickerGameManager extends GameManager {
                             (float) (Constants.BALL_RADIUS)*PUCK_RADIUS_FACTOR),
                     puckImage,
                     collisionSound,
-                    PUCK_TAG);
+                    PUCK_TAG,
+                    this);
             gameObjects().addGameObject(puck);
         }
     }

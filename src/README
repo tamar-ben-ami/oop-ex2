@@ -3,15 +3,29 @@ yaara.berg, tamarbenami
 
  1. what design pattern we choose to remove bricks from the game?
   what are the pros and cons of using this pattern?
+We chose to leave the exclusive responsibility for adding and deleting items only in
+the BrickerGameManager class. We chose this option because centralizing the responsibility
+provides a single point of control for adding and removing game objects.
+This can simplify maintenance and updates, as changes related to object management are
+concentrated in one class.
+One of the main cons is that this design might violate the Open/Closed Principle,
+making it challenging to extend the behavior without modifying existing code.
+Adding new features related to object management might require changes to
+the BrickerGameManager class.
 
 
 2. how did we implement the life counter visualization? why did we choose to implement it this way?
-We implemented the life counter visualization with only one class LifeCounter.
-The LifeCounter class is responsible for creating and updating the life counter as the visualization.
-We choose to manage the life counter in one class because it allows for easy addition of new features
-in one place, and it allows for easy debugging and testing.
-Managing the life counter in one class also allows for easy access to the life counter from other classes,
-such as the Game class, which needs to update the life counter when a life is lost.
+The implementation of the life counter visualization was done using a single class named LifeCounter,
+which incorporates both a graphic life counter and a numeric life counter.
+This design choice follows the "has-a" relationship, where the LifeCounter class has
+components for both graphical and numeric representations of the life counter.
+By consolidating the logic for both visualizations within one class,
+the design ensures a unified and consistent interface for managing the life counter.
+This approach simplifies the code structure, making it easier to maintain and reducing
+the risk of discrepancies between the graphical and numeric representations.
+The encapsulation of all aspects of the life counter within a single class not only
+promotes easier maintenance but also provides flexibility for future extensions or modifications,
+fostering a modular and scalable design.
 
 3. briefly explain how we implemented each CollisionStrategy and additional classes that
  were added to the game.

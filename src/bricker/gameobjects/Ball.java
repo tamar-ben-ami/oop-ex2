@@ -7,7 +7,11 @@ import danogl.gui.Sound;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 
+import java.util.Objects;
 import java.util.Random;
+
+import static bricker.main.Constants.PUCK_TAG;
+import static bricker.main.Constants.ZERO;
 
 /**
  * Represents a ball GameObject in the Bricker game.
@@ -35,7 +39,7 @@ public class Ball extends GameObject {
      * @param tag            A tag to identify the ball.
      */
     public Ball(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable,
-                    Sound collisionSound, String tag) {
+                    Sound collisionSound, String tag, BrickerGameManager gameManager) {
         super(topLeftCorner, dimensions, renderable);
         this.topLeftCorner = topLeftCorner;
         this.collisionSound = collisionSound;
@@ -43,6 +47,7 @@ public class Ball extends GameObject {
         setRandomVelocity();
         zoomTimer = false;
         collisionCounter = 0;
+        this.gameManager = gameManager;
     }
 
     /**
@@ -105,5 +110,24 @@ public class Ball extends GameObject {
      */
     public int getCollisionCounter() {
         return collisionCounter;
+    }
+
+    /**
+     * Updates the life gift position and validates it's not out of the boundaries of game
+     *
+     * @param deltaTime The time passed since the last update.
+     */
+    @Override
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+        if (Objects.equals(this.getTag(), PUCK_TAG)) {
+            if (this.getTopLeftCorner().y() > this.gameManager.getWindowY() |
+                    this.gameManager.getWindowY() < ZERO |
+                    this.getTopLeftCorner().x() > this.gameManager.getWindowX() |
+                    this.getTopLeftCorner().x() < ZERO
+            ) {
+                this.gameManager.removeGameObject(this);
+            }
+        }
     }
 }
