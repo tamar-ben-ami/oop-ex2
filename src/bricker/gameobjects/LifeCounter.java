@@ -1,7 +1,7 @@
 package bricker.gameobjects;
 
+import bricker.main.BrickerGameManager;
 import danogl.GameObject;
-import danogl.collisions.GameObjectCollection;
 import danogl.collisions.Layer;
 import danogl.gui.ImageReader;
 import danogl.gui.rendering.ImageRenderable;
@@ -19,7 +19,7 @@ import java.awt.*;
 public class LifeCounter extends GameObject {
     private static final int INITIAL_NUM_LIVES = 3;
     private static final int MAX_NUM_LIVES = 4;
-    private final GameObjectCollection gameObjectCollection;
+    private final BrickerGameManager gameManager;
     private final Vector2 windowDimensions;
     private int livesLeft = INITIAL_NUM_LIVES;
     private ImageReader imageReader;
@@ -37,15 +37,14 @@ public class LifeCounter extends GameObject {
      * Construct a new LifeCounter instance.
      * @param imageReader imageReader of the gameManager
      * @param windowDimensions the window dimensions of game
-     * @param gameObjectCollection the game objects collection of the manager,
-     *                            where the graphic and numeric counters would be added to
+     * @param gameManager the game manager
      */
     public LifeCounter(ImageReader imageReader, Vector2 windowDimensions,
-                       GameObjectCollection gameObjectCollection) {
+                       BrickerGameManager gameManager) {
         super(Vector2.ZERO, Vector2.ZERO, null);
         this.windowDimensions = windowDimensions;
         this.imageReader = imageReader;
-        this.gameObjectCollection = gameObjectCollection;
+        this.gameManager = gameManager;
         createNumericLifeCounter();
         createGraphicLifeCounter();
     }
@@ -59,7 +58,7 @@ public class LifeCounter extends GameObject {
         for (int i = 0; i < livesLeft; i++) {
             this.graphicCounterHearts[i] = new GameObject(new Vector2( i * HEART_DIMENSION.x(),
                     windowDimensions.y() - HEART_DIMENSION.y()), HEART_DIMENSION, graphicLifeCounterImage);
-            this.gameObjectCollection.addGameObject(this.graphicCounterHearts[i], Layer.BACKGROUND);
+            this.gameManager.addGameObject(this.graphicCounterHearts[i], Layer.BACKGROUND);
         }
     }
 
@@ -69,7 +68,7 @@ public class LifeCounter extends GameObject {
     private void createNumericLifeCounter() {
         numericImage = new TextRenderable(Integer.toString(livesLeft));
         GameObject numericLifeCounter = new GameObject(Vector2.ZERO, NUM_COUNTER_DIM, numericImage);
-        gameObjectCollection.addGameObject(numericLifeCounter);
+        gameManager.addGameObject(numericLifeCounter, Layer.DEFAULT);
         numericImage.setColor(Color.green);
         setNumericCounterColorByLives();
     }
@@ -83,7 +82,7 @@ public class LifeCounter extends GameObject {
             numericImage.setString(Integer.toString(livesLeft));
             setNumericCounterColorByLives();
             addHeartToGraphicCounterHearts();
-            gameObjectCollection.addGameObject(graphicCounterHearts[livesLeft - 1], Layer.BACKGROUND);
+            gameManager.addGameObject(graphicCounterHearts[livesLeft - 1], Layer.BACKGROUND);
         }
     }
 
@@ -105,7 +104,7 @@ public class LifeCounter extends GameObject {
         livesLeft -= 1;
         numericImage.setString(Integer.toString(livesLeft));
         setNumericCounterColorByLives();
-        gameObjectCollection.removeGameObject(graphicCounterHearts[livesLeft], Layer.BACKGROUND);
+        gameManager.removeGameObject(graphicCounterHearts[livesLeft], Layer.BACKGROUND);
     }
 
     /**
