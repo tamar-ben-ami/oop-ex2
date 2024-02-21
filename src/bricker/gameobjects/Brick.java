@@ -16,6 +16,15 @@ import danogl.util.Vector2;
 public class Brick extends GameObject {
     private final Counter bricksCounter;
     private final CollisionStrategy collisionStrategy;
+
+    /**
+     * This constructs the Brick game object
+     * @param topLeftCorner coordinate of brick game object
+     * @param dimensions dimensions of the game window
+     * @param renderable renderable image of the brick
+     * @param collisionStrategy collisionStrategy of the brick
+     * @param bricksCounter counter of remaining bricks
+     */
     public Brick(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable, CollisionStrategy collisionStrategy,
                  Counter bricksCounter) {
         super(topLeftCorner, dimensions, renderable);
