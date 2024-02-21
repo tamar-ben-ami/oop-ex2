@@ -100,7 +100,10 @@ public class Ball extends GameObject {
         zoomTimer = true;
     }
 
-    int getCollisionCounter() {
+    /**
+     * @return the number of collisions the ball has had.
+     */
+    public int getCollisionCounter() {
         return collisionCounter;
     }
 }
