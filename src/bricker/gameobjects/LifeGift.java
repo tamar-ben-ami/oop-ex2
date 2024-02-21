@@ -23,7 +23,8 @@ public class LifeGift extends GameObject {
      * @param renderable the renderable of the life gift
      * @param gameManager the manager of the game
      */
-    public LifeGift(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable, BrickerGameManager gameManager) {
+    public LifeGift(Vector2 topLeftCorner, Vector2 dimensions,
+                    Renderable renderable, BrickerGameManager gameManager) {
         super(topLeftCorner, dimensions, renderable);
         this.gameManager = gameManager;
         this.setVelocity(LIFE_GIFT_VELOCITY);

@@ -26,7 +26,8 @@ public class DoubleCollisionStrategy implements CollisionStrategy{
         int count_double = 0;
         while (count_strategies - count_double < DOUBLE_COLLISION_STRATEGIES
                 & count_strategies < MAX_COLLISION_STRATEGIES) {
-            collisionStrategies[count_strategies] = CollisionStrategyFactory.getSpeicalCollisionStrategy(gameManager);
+            collisionStrategies[count_strategies] = CollisionStrategyFactory.
+                    getSpeicalCollisionStrategy(gameManager);
             count_strategies++;
         }
     }
