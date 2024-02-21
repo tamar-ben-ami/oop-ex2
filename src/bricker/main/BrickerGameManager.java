@@ -97,7 +97,7 @@ public class BrickerGameManager extends GameManager {
      * This function creates a life counter object and saves it in the game manager instance
      */
     private void createLifeCounter() {
-        lifeCounter = new LifeCounter(imageReader, getWindowDim(), gameObjects());
+        lifeCounter = new LifeCounter(imageReader, getWindowDim(), this);
     }
 
     /**
@@ -377,12 +377,28 @@ public class BrickerGameManager extends GameManager {
      * This function removes a given game object of the GameObjectCollection
      * @param gameObject
      */
-    public void removeGameObject(GameObject gameObject) {
+    public void removeGameObject(GameObject gameObject, int layerId) {
         // TODO: check if gameObject in gameObjects
-        gameObjects().removeGameObject(gameObject);
+        gameObjects().removeGameObject(gameObject, layerId);
         if (gameObject.equals(secondPaddle)) {
             hasSecondPaddle = false;
         }
         // TODO: if gameObject is brick, decrease bricksCounter
+    }
+
+    /**
+     * This function removes a given game object of the GameObjectCollection
+     * @param gameObject
+     */
+    public void removeGameObject(GameObject gameObject) {
+        removeGameObject(gameObject, Layer.DEFAULT);
+    }
+
+    /**
+     * This function adds a given game object of the GameObjectCollection
+     * @param gameObject
+     */
+    public void addGameObject(GameObject gameObject, int layerId) {
+        gameObjects().addGameObject(gameObject, layerId);
     }
 }
