@@ -1,20 +1,5 @@
 package bricker.main;
-
-import bricker.brick_strategies.CollisionStrategy;
-import bricker.brick_strategies.CollisionStrategyFactory;
-import bricker.gameobjects.*;
-import danogl.GameManager;
-import danogl.GameObject;
-import danogl.collisions.Layer;
-import danogl.components.CoordinateSpace;
-import danogl.gui.*;
-import danogl.gui.rendering.Camera;
-import danogl.gui.rendering.ImageRenderable;
-import danogl.gui.rendering.Renderable;
-import danogl.util.Counter;
 import danogl.util.Vector2;
-
-import java.awt.event.KeyEvent;
 
 /**
  * Constances for BrickerGameManager.
