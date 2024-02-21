@@ -40,7 +40,8 @@ public class LifeCounter extends GameObject {
      * @param gameObjectCollection the game objects collection of the manager,
      *                            where the graphic and numeric counters would be added to
      */
-    public LifeCounter(ImageReader imageReader, Vector2 windowDimensions, GameObjectCollection gameObjectCollection) {
+    public LifeCounter(ImageReader imageReader, Vector2 windowDimensions,
+                       GameObjectCollection gameObjectCollection) {
         super(Vector2.ZERO, Vector2.ZERO, null);
         this.windowDimensions = windowDimensions;
         this.imageReader = imageReader;

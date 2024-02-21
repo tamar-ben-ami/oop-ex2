@@ -25,7 +25,8 @@ public class Brick extends GameObject {
      * @param collisionStrategy collisionStrategy of the brick
      * @param bricksCounter counter of remaining bricks
      */
-    public Brick(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable, CollisionStrategy collisionStrategy,
+    public Brick(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable,
+                 CollisionStrategy collisionStrategy,
                  Counter bricksCounter) {
         super(topLeftCorner, dimensions, renderable);
         this.collisionStrategy = collisionStrategy;
