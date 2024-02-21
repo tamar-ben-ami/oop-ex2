@@ -1,6 +1,6 @@
 package bricker.brick_strategies;
 
-import bricker.BrickerGameManager;
+import bricker.main.BrickerGameManager;
 
 import java.util.Random;
 
@@ -8,7 +8,6 @@ import java.util.Random;
  * Factory of CollisionStrategy
  */
 public class CollisionStrategyFactory {
-    // TODO check!!
     private static final String[] SPECIAL_STRATEGIES = {"balls", "camera", "life", "paddle", "double"};
 
     // returns a collisionStrategy randomly based on probabilities

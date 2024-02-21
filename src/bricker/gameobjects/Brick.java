@@ -7,6 +7,9 @@ import danogl.gui.rendering.Renderable;
 import danogl.util.Counter;
 import danogl.util.Vector2;
 
+/**
+ * Represents a Brick GameObject in the Bricker game.
+ */
 public class Brick extends GameObject {
     private final Counter bricksCounter;
     private final CollisionStrategy collisionStrategy;
@@ -18,6 +21,12 @@ public class Brick extends GameObject {
         this.setTag("Brick");
     }
 
+    /**
+     * Handles the event when a collision occurs with another GameObject.
+     *
+     * @param other     The GameObject with which the collision occurred.
+     * @param collision Information about the collision.
+     */
     @Override
     public void onCollisionEnter(GameObject other, Collision collision) {
         super.onCollisionEnter(other, collision);
