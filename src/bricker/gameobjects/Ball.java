@@ -1,6 +1,5 @@
 package bricker.gameobjects;
 
-import bricker.brick_strategies.CollisionStrategy;
 import bricker.main.BrickerGameManager;
 import danogl.GameObject;
 import danogl.collisions.Collision;
@@ -22,7 +21,7 @@ public class Ball extends GameObject {
     private BrickerGameManager gameManager; // Reference to the game manager
     private Vector2 topLeftCorner; // Top-left corner position of the ball when setting it
     private boolean zoomTimer; // Flag indicating whether zoom timer is active
-    private int countCollision; // Counter for the number of collisions
+    private int collisionCounter; // Counter for the number of collisions
 
     /**
      * Construct a new Ball instance.
@@ -43,7 +42,7 @@ public class Ball extends GameObject {
         this.setTag(tag);
         setRandomVelocity();
         zoomTimer = false;
-        countCollision = 0;
+        collisionCounter = 0;
     }
 
     /**
@@ -59,8 +58,8 @@ public class Ball extends GameObject {
         setVelocity(newVel);
         collisionSound.play();
         if (zoomTimer && gameManager.isMainBall(this)) {
-            countCollision++;
-            if (countCollision == 4) {
+            collisionCounter++;
+            if (collisionCounter == 4) {
                 gameManager.setCamera(null);
                 zoomTimer = false;
             }
@@ -97,7 +96,11 @@ public class Ball extends GameObject {
      */
     public void setZoomTimer(BrickerGameManager gameManager){
         this.gameManager = gameManager;
-        countCollision = 0;
+        collisionCounter = 0;
         zoomTimer = true;
+    }
+
+    int getCollisionCounter() {
+        return collisionCounter;
     }
 }
