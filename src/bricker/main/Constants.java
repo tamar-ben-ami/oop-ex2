@@ -7,7 +7,10 @@ import danogl.util.Vector2;
  * @author tamar, yaara
  */
 public class Constants {
-
+    /**
+     * Constructor is default
+     */
+    private Constants() {}
     /**
      * Window width
      */
