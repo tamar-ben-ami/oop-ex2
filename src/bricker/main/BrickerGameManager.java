@@ -289,8 +289,8 @@ public class BrickerGameManager extends GameManager {
      * This function creates a single brick object and adds it to the game object collection
      * @param row row of the brick
      * @param col column of the brick
-     * @param brickWidth
-     * @param brickImage
+     * @param brickWidth the width of a single brick
+     * @param brickImage the image of the brick
      */
     private void createBrick(int row, int col, float brickWidth, Renderable brickImage) {
         CollisionStrategy collisionStrategy =
@@ -345,18 +345,18 @@ public class BrickerGameManager extends GameManager {
     }
 
     /**
-     * This funciton returns true if the given gameObject is the main ball
-     * @param gameObject
-     * @return
+     * This function returns true if the given gameObject is the main ball
+     * @param gameObject the game object to check if is main ball
+     * @return is the object is main ball
      */
     public boolean isMainBall(GameObject gameObject) {
         return gameObject.getTag().equals(BALL_TAG);
     }
 
     /**
-     * This funciton returns true if the given gameObject is the main paddle
-     * @param gameObject
-     * @return
+     * This function returns true if the given gameObject is the main paddle
+     * @param gameObject the game object to check if is main paddle
+     * @return is the object is main paddle
      */
     public boolean isMainPaddle(GameObject gameObject) {
         return gameObject.equals(paddle);
@@ -364,7 +364,7 @@ public class BrickerGameManager extends GameManager {
 
     /**
      * Main function that runs the game
-     * @param args
+     * @param args num of row, num of col
      */
     public static void main(String[] args) {
 
@@ -379,20 +379,18 @@ public class BrickerGameManager extends GameManager {
 
     /**
      * This function removes a given game object of the GameObjectCollection
-     * @param gameObject
+     * @param gameObject the game object we want to remove
      */
     public void removeGameObject(GameObject gameObject, int layerId) {
-        // TODO: check if gameObject in gameObjects
         gameObjects().removeGameObject(gameObject, layerId);
         if (gameObject.equals(secondPaddle)) {
             hasSecondPaddle = false;
         }
-        // TODO: if gameObject is brick, decrease bricksCounter
     }
 
     /**
      * This function removes a given game object of the GameObjectCollection
-     * @param gameObject
+     * @param gameObject the game object we want to remove
      */
     public void removeGameObject(GameObject gameObject) {
         removeGameObject(gameObject, Layer.DEFAULT);
@@ -400,7 +398,7 @@ public class BrickerGameManager extends GameManager {
 
     /**
      * This function adds a given game object of the GameObjectCollection
-     * @param gameObject
+     * @param gameObject the game object we want to
      */
     public void addGameObject(GameObject gameObject, int layerId) {
         gameObjects().addGameObject(gameObject, layerId);

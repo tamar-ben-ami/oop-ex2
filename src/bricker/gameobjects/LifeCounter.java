@@ -21,8 +21,8 @@ public class LifeCounter extends GameObject {
     private static final int MAX_NUM_LIVES = 4;
     private final BrickerGameManager gameManager;
     private final Vector2 windowDimensions;
+    private final ImageReader imageReader;
     private int livesLeft = INITIAL_NUM_LIVES;
-    private ImageReader imageReader;
 
     // Numeric counter variables
     private TextRenderable numericImage;

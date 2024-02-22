@@ -11,7 +11,7 @@ import danogl.GameObject;
  */
 public class BallsCollisionStrategy implements CollisionStrategy{
     private static final int NUM_OF_PUCKS = 3;
-    private BrickerGameManager gameManager;
+    private final BrickerGameManager gameManager;
 
     /**
      * constructor for BallsCollisionStrategy

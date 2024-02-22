@@ -14,7 +14,7 @@ public class DoubleCollisionStrategy implements CollisionStrategy{
     private static final int DOUBLE_COLLISION_STRATEGIES = 2;
     private static final int MAX_COLLISION_STRATEGIES = 3;
     private int count_strategies = 0;
-    private CollisionStrategy[] collisionStrategies = new CollisionStrategy[MAX_COLLISION_STRATEGIES];
+    private final CollisionStrategy[] collisionStrategies = new CollisionStrategy[MAX_COLLISION_STRATEGIES];
 
     /**
      * Constructor for DoubleCollisionStrategy
