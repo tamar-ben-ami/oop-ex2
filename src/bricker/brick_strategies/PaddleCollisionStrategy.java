@@ -1,22 +1,21 @@
 package bricker.brick_strategies;
-import bricker.main.BrickerGameManager;
+
 import danogl.GameObject;
 
 /**
  * Collision strategy that removes the brick and create a second paddle
  *
  * @author tamar, yaara
- * @see CollisionStrategy
+ * @see CollisionStrategyDecorator
  */
-public class PaddleCollisionStrategy implements CollisionStrategy{
-    private final BrickerGameManager gameManager;
+public class PaddleCollisionStrategy extends CollisionStrategyDecorator{
 
     /**
-     * constructor for PaddleCollisionStrategy
-     * @param gameManager the game manager
+     * Constructor for PaddleCollisionStrategy.
+     * @param decoratedStrategy the decorated strategy
      */
-    public PaddleCollisionStrategy(BrickerGameManager gameManager) {
-        this.gameManager = gameManager;
+    public PaddleCollisionStrategy(CollisionStrategy decoratedStrategy) {
+        super(decoratedStrategy);
     }
 
     /**
@@ -27,8 +26,8 @@ public class PaddleCollisionStrategy implements CollisionStrategy{
      */
     @Override
     public void onCollision(GameObject thisObj, GameObject otherObj) {
+        super.onCollision(thisObj, otherObj);
         if (gameManager.isMainBall(otherObj)) {
-            gameManager.removeGameObject(thisObj);
             gameManager.createSecondPaddle();
         }
     }

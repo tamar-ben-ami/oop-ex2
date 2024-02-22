@@ -6,11 +6,7 @@ import danogl.collisions.Collision;
 import danogl.gui.Sound;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
-
-import java.util.Objects;
 import java.util.Random;
-
-import static bricker.main.Constants.PUCK_TAG;
 import static bricker.main.Constants.ZERO;
 
 /**
@@ -23,7 +19,7 @@ public class Ball extends GameObject {
     private static final double BALL_SPEED = 350; // Initial speed of the ball
     private final Sound collisionSound; // Sound played when the ball collides
     private BrickerGameManager gameManager; // Reference to the game manager
-    private Vector2 topLeftCorner; // Top-left corner position of the ball when setting it
+    private final Vector2 topLeftCorner; // Top-left corner position of the ball when setting it
     private boolean zoomTimer; // Flag indicating whether zoom timer is active
     private int collisionCounter; // Counter for the number of collisions
 
@@ -120,7 +116,7 @@ public class Ball extends GameObject {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-        if (Objects.equals(this.getTag(), PUCK_TAG)) {
+        if (!gameManager.isMainBall(this)) {
             if (this.getTopLeftCorner().y() > this.gameManager.getWindowY() |
                     this.gameManager.getWindowY() < ZERO |
                     this.getTopLeftCorner().x() > this.gameManager.getWindowX() |

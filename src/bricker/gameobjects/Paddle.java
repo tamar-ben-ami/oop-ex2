@@ -6,7 +6,6 @@ import danogl.collisions.Collision;
 import danogl.gui.UserInputListener;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
-
 import java.awt.event.KeyEvent;
 
 /**
@@ -118,7 +117,7 @@ public class Paddle extends GameObject {
      * set disappearing timer - after 4 collisions
      * used only for second paddle
      *
-     * @param gameManager
+     * @param gameManager the game manager
      */
     public void setDisappearingTimer(BrickerGameManager gameManager){
         this.gameManager = gameManager;

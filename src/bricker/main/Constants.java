@@ -50,6 +50,16 @@ public class Constants {
     public static final int NUM_OF_BRICKS_COLS = 8;
 
     /**
+     * max number of strategies allowed when "double" strategy is activated
+     * 1 "double" decorator is the case where we have 3 other strategies, as we asked for on the assignment
+     */
+    public static final int MAX_DOUBLE_STRATEGIES = 1;
+    /**
+     * nun of pucks when activating "balls" strategy
+     */
+    public static final int NUM_OF_PUCKS = 3;
+
+    /**
      * Default paddle y coordinate
      */
     public static final int DEFAULT_PADDLE_Y = 30;
@@ -101,15 +111,11 @@ public class Constants {
     /**
      * Life image
      */
-    public static final String LIFE_IMAGE = "assets/heart.png";
+    public static final String HEART_IMAGE = "assets/heart.png";
     /**
      * Brick collision sound
      */
     public static final String BALL_TAG = "Ball";
-    /**
-     * Puck tag
-     */
-    public static final String PUCK_TAG = "Puck";
     /**
      * Paddle tag
      */

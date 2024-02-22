@@ -1,7 +1,8 @@
 package bricker.brick_strategies;
 
 import bricker.main.BrickerGameManager;
-
+import bricker.main.Constants;
+import danogl.util.Counter;
 import java.util.Random;
 
 /**
@@ -14,54 +15,56 @@ public class CollisionStrategyFactory {
     /**
      * default constructor of the class
      */
-    public CollisionStrategyFactory() {}
+    public CollisionStrategyFactory() {
+    }
 
     private static final String[] SPECIAL_STRATEGIES = {"balls", "camera", "life", "paddle", "double"};
 
-    // returns a collisionStrategy randomly based on probabilities
 
     /**
      * build a random collision strategy, half probability for basic strategy and half for special strategy
+     *
      * @param brickerGameManager the game manager
      * @return a random collision strategy
      */
     public static CollisionStrategy getRandomCollisionStrategy(BrickerGameManager brickerGameManager) {
+        BasicCollisionStrategy strategy = new BasicCollisionStrategy(brickerGameManager);
         Random rand = new Random();
         int randomValue = rand.nextInt(2);
         if (randomValue == 0) {
-            return buildCollisionStrategy("basic", brickerGameManager);
+            return strategy;
         } else {
-            return getSpeicalCollisionStrategy(brickerGameManager);
+            return addSpecialStrategy(strategy, new Counter());
         }
     }
 
     /**
      * build special collision strategy with uniform probability
-     * @param brickerGameManager game manager instance
+     *
+     * @param strategy the basic strategy
+     * @param numOfDouble allowed only one double decorator (so it will be 3 other strategies)
      * @return a random special collision strategy
      */
-    public static CollisionStrategy getSpeicalCollisionStrategy(BrickerGameManager brickerGameManager){
+    private static CollisionStrategy addSpecialStrategy(CollisionStrategy strategy, Counter numOfDouble) {
+        // else give random special strategy
         Random rand = new Random();
-        int randomValue = rand.nextInt(SPECIAL_STRATEGIES.length);
-        return buildCollisionStrategy(SPECIAL_STRATEGIES[randomValue], brickerGameManager);
-    }
-
-    /**
-     * builds a collision strategy based on the specified type.
-     * @param type  the type of collision strategy to build
-     * @param brickerGameManager the game manager
-     * @return a collision strategy instance
-     */
-    public static CollisionStrategy buildCollisionStrategy(String type,
-                                                           BrickerGameManager brickerGameManager) {
-        return switch (type) {
-            case "basic" -> new BasicCollisionStrategy(brickerGameManager);
-            case "balls" -> new BallsCollisionStrategy(brickerGameManager);
-            case "camera" -> new CameraCollisionStrategy(brickerGameManager);
-            case "life" -> new LifeCollisionStrategy(brickerGameManager);
-            case "paddle" -> new PaddleCollisionStrategy(brickerGameManager);
-            case "double" -> new DoubleCollisionStrategy(brickerGameManager);
-            default -> null;
+        int randomValue;
+        // if more "double" decorator twice, do not random "double" decorator
+        if (numOfDouble.value() >= Constants.MAX_DOUBLE_STRATEGIES) {
+            randomValue = rand.nextInt(SPECIAL_STRATEGIES.length-1);
+        }
+        else {
+            randomValue = rand.nextInt(SPECIAL_STRATEGIES.length);
+        }
+        return switch (SPECIAL_STRATEGIES[randomValue]) {
+            case "balls" -> new BallsCollisionStrategy(strategy);
+            case "camera" -> new CameraCollisionStrategy(strategy);
+            case "life" -> new LifeCollisionStrategy(strategy);
+            case "paddle" -> new PaddleCollisionStrategy(strategy);
+            default -> {
+                numOfDouble.increment();
+                yield addSpecialStrategy(addSpecialStrategy(strategy, numOfDouble), numOfDouble);
+            }
         };
     }
 }

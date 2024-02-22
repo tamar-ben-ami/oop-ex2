@@ -1,13 +1,13 @@
 package bricker.gameobjects;
 
 import bricker.main.BrickerGameManager;
+import bricker.main.Constants;
 import danogl.GameObject;
 import danogl.collisions.Layer;
 import danogl.gui.ImageReader;
 import danogl.gui.rendering.ImageRenderable;
 import danogl.gui.rendering.TextRenderable;
 import danogl.util.Vector2;
-
 import java.awt.*;
 
 /**
@@ -53,7 +53,7 @@ public class LifeCounter extends GameObject {
      * This function creates the graphic life counter, and creates array of hearts objects
      */
     private void createGraphicLifeCounter() {
-        this.graphicLifeCounterImage = imageReader.readImage("assets/heart.png", true);
+        this.graphicLifeCounterImage = imageReader.readImage(Constants.HEART_IMAGE, true);
         this.graphicCounterHearts = new GameObject[livesLeft];
         for (int i = 0; i < livesLeft; i++) {
             this.graphicCounterHearts[i] = new GameObject(new Vector2( i * HEART_DIMENSION.x(),

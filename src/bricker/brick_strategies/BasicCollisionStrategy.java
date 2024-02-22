@@ -1,6 +1,7 @@
 package bricker.brick_strategies;
 
 import bricker.main.BrickerGameManager;
+import bricker.main.Constants;
 import danogl.GameObject;
 
 /**
@@ -9,15 +10,13 @@ import danogl.GameObject;
  * @author tamar, yaara
  * @see CollisionStrategy
  */
-public class BasicCollisionStrategy implements CollisionStrategy{
-    private final BrickerGameManager gameManager;
-
+public class BasicCollisionStrategy extends CollisionStrategy {
     /**
      * Constructor for BasicCollisionStrategy.
      * @param gameManager the game manager instance
      */
     public BasicCollisionStrategy(BrickerGameManager gameManager) {
-        this.gameManager = gameManager;
+        super(gameManager);
     }
 
 
@@ -28,7 +27,7 @@ public class BasicCollisionStrategy implements CollisionStrategy{
      */
     @Override
     public void onCollision(GameObject thisObj, GameObject otherObj) {
-        if (gameManager.isMainBall(otherObj)) {
+        if (otherObj.getTag().equals(Constants.BALL_TAG)){
             gameManager.removeGameObject(thisObj);
         }
     }

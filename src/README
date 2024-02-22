@@ -29,9 +29,25 @@ yaara.berg, tamarbenami
 
 3. briefly explain how we implemented each CollisionStrategy and additional classes that
    were added to the game.
+   We used the BasicCollisionStrategy as the standard collision strategy and with decorator we added
+   a special behaviour to each brick.
+   We decided to try and implement most od the logic function in the game manager, because we wanted
+   to keep the game manager as the main class that controls the game.
+   For adding balls strategy, we created balls instance and added relevant methods.
+   For changing the camera zoom, the game manager will init a zoom and will change it back if needed.
+   For adding paddle, we added a boolean variable to make sure only one paddle is added. the game manager
+   init the timer for the paddle too.
+   For the life gift, we created an new class LifeGift extended GameObject when her on collision will give us
+   an extra life.
 
 
 4. howe did we implement the DoubleCollision? why did we choose to implement it this way?
-how did we make sure no more than 3 strategies are used?
+   how did we make sure no more than 3 strategies are used?
+   because we used the decorator pattern, it was easily to implement double behavior.
+   We learned that by implementing a small number of decorators, it is possible to put together
+   different combinations producing an exponential number of new behaviors, so we used it in our assignment.
+   In order to make sure no more than 3 strategies are used, it is practically say we allowed only one
+   "double" behavior.
+   So we added a counter and make sure to increase it every time that "double" behavior is added.
 
 

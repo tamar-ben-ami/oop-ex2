@@ -1,5 +1,5 @@
 package bricker.brick_strategies;
-import bricker.main.BrickerGameManager;
+
 import danogl.GameObject;
 
 
@@ -7,17 +7,16 @@ import danogl.GameObject;
  * Collision strategy that removes the brick and creating a gift life
  *
  * @author tamar, yaara
- * @see CollisionStrategy
+ * @see CollisionStrategyDecorator
  */
-public class LifeCollisionStrategy implements CollisionStrategy{
-    private final BrickerGameManager gameManager;
+public class LifeCollisionStrategy extends CollisionStrategyDecorator{
 
     /**
-     * constructor for LifeCollisionStrategy
-     * @param gameManager the game manager
+     * Constructor for LifeCollisionStrategy.
+     * @param decoratedStrategy the decorated strategy
      */
-    public LifeCollisionStrategy(BrickerGameManager gameManager) {
-        this.gameManager = gameManager;
+    public LifeCollisionStrategy(CollisionStrategy decoratedStrategy) {
+        super(decoratedStrategy);
     }
 
     /**
@@ -31,8 +30,8 @@ public class LifeCollisionStrategy implements CollisionStrategy{
      */
     @Override
     public void onCollision(GameObject thisObj, GameObject otherObj) {
+        super.onCollision(thisObj, otherObj);
         if (gameManager.isMainBall(otherObj)) {
-            gameManager.removeGameObject(thisObj);
             gameManager.createLifeGift(thisObj.getCenter());
         }
     }

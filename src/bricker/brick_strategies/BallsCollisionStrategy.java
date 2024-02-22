@@ -1,24 +1,22 @@
 package bricker.brick_strategies;
 
-import bricker.main.BrickerGameManager;
+import bricker.main.Constants;
 import danogl.GameObject;
 
 /**
  * Collision strategy that removes the brick and create two small puck balls
  *
  * @author tamar, yaara
- * @see CollisionStrategy
+ * @see CollisionStrategyDecorator
  */
-public class BallsCollisionStrategy implements CollisionStrategy{
-    private static final int NUM_OF_PUCKS = 3;
-    private final BrickerGameManager gameManager;
-
+public class BallsCollisionStrategy extends CollisionStrategyDecorator{
     /**
-     * constructor for BallsCollisionStrategy
-     * @param gameManager the game manager
+     * constructor for CollisionStrategy
+     *
+     * @param decoratedStrategy the decorated strategy
      */
-    public BallsCollisionStrategy(BrickerGameManager gameManager) {
-        this.gameManager = gameManager;
+    public BallsCollisionStrategy(CollisionStrategy decoratedStrategy){
+        super(decoratedStrategy);
     }
 
     /**
@@ -30,9 +28,9 @@ public class BallsCollisionStrategy implements CollisionStrategy{
      */
     @Override
     public void onCollision(GameObject thisObj, GameObject otherObj) {
+        super.onCollision(thisObj, otherObj);
         if (gameManager.isMainBall(otherObj)) {
-            gameManager.removeGameObject(thisObj);
-            gameManager.createPucks(otherObj.getCenter(), NUM_OF_PUCKS);
+            gameManager.createPucks(otherObj.getCenter(), Constants.NUM_OF_PUCKS);
         }
 
     }
