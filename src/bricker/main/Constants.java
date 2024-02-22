@@ -99,6 +99,10 @@ public class Constants {
      */
     public static final String BRICK_IMAGE = "assets/brick.png";
     /**
+     * Life image
+     */
+    public static final String LIFE_IMAGE = "assets/heart.png";
+    /**
      * Brick collision sound
      */
     public static final String BALL_TAG = "Ball";

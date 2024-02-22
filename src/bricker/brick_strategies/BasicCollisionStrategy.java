@@ -10,7 +10,6 @@ import danogl.GameObject;
  * @see CollisionStrategy
  */
 public class BasicCollisionStrategy implements CollisionStrategy{
-    //TODO add to read me
     private final BrickerGameManager gameManager;
 
     /**

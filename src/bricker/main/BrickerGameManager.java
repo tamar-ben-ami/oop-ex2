@@ -105,7 +105,7 @@ public class BrickerGameManager extends GameManager {
      * @param center center coordinate of the new life gift coordinate
      */
     public void createLifeGift(Vector2 center) {
-        ImageRenderable lifeGiftImage = imageReader.readImage("assets/heart.png", true);
+        ImageRenderable lifeGiftImage = imageReader.readImage(Constants.LIFE_IMAGE, true);
         GameObject lifeGift = new LifeGift(new Vector2(center.x(),
                 center.y()), HEART_DIMENSION, lifeGiftImage, this);
         this.gameObjects().addGameObject(lifeGift);
@@ -306,15 +306,17 @@ public class BrickerGameManager extends GameManager {
     /**
      * This function creates a camera and sets the timer of it active
      */
-    public void cameraBallZoom() {
-        setCamera(
-                new Camera(
-                        ball, //object to follow
-                        Vector2.ZERO, //follow the center of the object
-                        getWindowDim().mult(Constants.CAMERA_ZOOM_FACTOR), //widen the frame a bit
-                        getWindowDim() //share the window dimensions
-                )
-        );
+    public void setCameraBallZoom() {
+        if (camera() == null) {
+            setCamera(
+                    new Camera(
+                            ball, //object to follow
+                            Vector2.ZERO, //follow the center of the object
+                            getWindowDim().mult(Constants.CAMERA_ZOOM_FACTOR), //widen the frame a bit
+                            getWindowDim() //share the window dimensions
+                        )
+                    );
+        }
         ball.setZoomTimer(this);
     }
 
